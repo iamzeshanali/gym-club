@@ -38,8 +38,13 @@ Route::name('dashboard.')->group( function() {
     Route::prefix('dashboard')->group(function(){
         //    Route: Index
         Route::get('/', function () { return view('dashboard/main-page'); })->name('index');
+
+        Route::get('/users', function () { return view('dashboard/pages/clubs/clubs'); })->name('users');
+
         //    Route: Clubs
         Route::get('/clubs', function () { return view('dashboard/pages/clubs/clubs'); })->name('clubs');
+
+        Route::resource('roles',\App\Http\Controllers\RoleController::class);
     });
 
 });

@@ -9,6 +9,10 @@
 
         <li class="navigation-header"><a class="navigation-header-text">Management</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.users') ? 'active' : ''}}" href="{{ route('dashboard.users') }}"><i class="material-icons">chat_bubble_outline</i><span class="menu-title" data-i18n="Users">Users</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.roles.index') ? 'active' : ''}}" href="{{ route('dashboard.roles.index') }}"><i class="material-icons">chat_bubble_outline</i><span class="menu-title" data-i18n="Roles">Roles</span></a>
+        </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">chat_bubble_outline</i><span class="menu-title" data-i18n="Clubs">Clubs</span></a>
         </li>
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>
