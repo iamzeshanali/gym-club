@@ -37,7 +37,12 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create($request->all());
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $role = new Role();
+        $role->name = $request->name;
+        $role->save();
 
         return redirect()->route('dashboard.roles.index')->with('success','Role Created Successfully');
         //
@@ -62,7 +67,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        return view('dashboard/pages/roles/add-edit-roles', compact('role'));
+
     }
 
     /**
@@ -72,9 +78,16 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $role = Role::find($id);
+        $role->name = $request->name;
+        $role->save();
+        return redirect()->route('dashboard.roles.index')
+            ->with('success','Role Has Been updated successfully');
     }
 
     /**
@@ -85,6 +98,8 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect()->route('dashboard.roles.index')
+            ->with('success','Role Has Been Deleted successfully');
     }
 }

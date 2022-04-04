@@ -11,22 +11,21 @@
     <meta name="author" content="ThemeSelect">
     <title>@yield('title')</title>
 
-
-
     <link rel="apple-touch-icon" href="{{ asset('images/favicon/apple-touch-icon-152x152.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon/favicon-32x32.png') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- BEGIN: VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendors.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('vendors/animate-css/animate.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/chartist-js/chartist.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/chartist-js/chartist-plugin-tooltip.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/sweetalert/sweetalert.css') }}">
     <!-- END: VENDOR CSS-->
     <!-- BEGIN: Page Level CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/themes/vertical-menu-nav-dark-template/materialize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/themes/vertical-menu-nav-dark-template/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/pages/dashboard-modern.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/pages/intro.css') }}">
+
     <!-- END: Page Level CSS-->
     @yield('page-css')
     <!-- BEGIN: Custom CSS-->
@@ -283,10 +282,7 @@
 <script src="{{ asset('js/vendors.min.js') }}"></script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
-<script src="{{ asset('vendors/chartjs/chart.min.js') }}"></script>
-<script src="{{ asset('vendors/chartist-js/chartist.min.js') }}"></script>
-<script src="{{ asset('vendors/chartist-js/chartist-plugin-tooltip.js') }}"></script>
-<script src="{{ asset('vendors/chartist-js/chartist-plugin-fill-donut.min.js') }}"></script>
+
 
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN THEME  JS-->
@@ -294,10 +290,12 @@
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('js/custom/custom-script.js') }}"></script>
 <script src="{{ asset('js/scripts/customizer.js') }}"></script>
+
 <!-- END THEME  JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{{ asset('js/scripts/dashboard-modern.js') }}"></script>
 <script src="{{ asset('js/scripts/intro.js') }}"></script>
+
 <!-- END PAGE LEVEL JS-->
 
 {{-- Page Scripts--}}

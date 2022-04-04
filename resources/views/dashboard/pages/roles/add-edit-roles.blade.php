@@ -20,7 +20,7 @@
                                 </li>
                                 <li class="breadcrumb-item"><a href="{{ route('dashboard.roles.index') }}">Roles</a>
                                 </li>
-                                <li class="breadcrumb-item active">ViewAll
+                                <li class="breadcrumb-item active"> {{ isset($role) ? 'Edit' : 'Add' }} Role
                                 </li>
                             </ol>
                         </div>
@@ -32,19 +32,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12">
-                        <form id="accountForm" action="{{ route('dashboard.roles.store') }}" method="post">
+                        <form id="accountForm" action="{{ isset($role) ? route('dashboard.roles.update', $role) : route('dashboard.roles.store') }}" method="post">
                             @csrf
+                            @if(isset($role))
+                                @method('PUT')
+                            @endif
+
                             <div class="row">
-                                <div class="col s12 m6">
+                                <div class="col s12 ">
                                     <div class="row">
-                                        <div class="col s12 input-field">
-                                            <input id="name" name="name" type="text" class="validate"
-                                                   data-error=".errorTxt1">
+                                        <div class="col s12 m6 input-field">
+                                            <input id="name" name="name" type="text" class="validate" value="{{isset($role) ? $role->name : ''}}" required>
                                             <label for="username">Name</label>
                                             <small class="errorTxt1"></small>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col s12 display-flex justify-content-end mt-3 m6">
                                     <button type="submit" class="btn indigo">
                                         Save changes</button>
