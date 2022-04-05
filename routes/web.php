@@ -20,11 +20,10 @@ Route::get('/', function () {
 Route::view('/login','auth/login')->name('login');
 Route::view('/register','auth/register')->name('register');
 
-//ROUTE: Register | Auth
+//ROUTE: Register, Login, Logout | Auth
 Route::post('/register', [\App\Http\Controllers\Auth\AuthController::class, 'register'])->name('user.register');
 Route::post('/login', [\App\Http\Controllers\Auth\AuthController::class, 'login'])->name('user.login');
-
-
+Route::get('/logout', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('user.logout');
 
 //ROUTE: Forgot Password | Auth
 Route::get('/forgot-password', function () {

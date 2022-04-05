@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -24,7 +26,7 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role_id = $role[0]["id"];
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
 
         $user->save();
 
@@ -38,17 +40,19 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        dd("Login");
-        $role = Role::where('name', 'owner')->get();
+        $credentials = $request->only('email', 'password');
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->role_id = $role[0]["id"];
-        $user->password = $request->password;
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->route('dashboard.index');
+        }else{
+            return  redirect('login')->withSuccess('Email or Password Incorrect');
+        }
+    }
 
-        $user->save();
-
+    public function logout()
+    {
+        Auth::logout();
         return redirect()->route('login');
     }
 }
