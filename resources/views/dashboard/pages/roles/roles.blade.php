@@ -70,7 +70,7 @@
                                                                         @csrf
                                                                         @method('DELETE')
 
-                                                                        <a class="invoice-action-edit"  onclick="confirmDelete({{$role->id}})" style="cursor: pointer">
+                                                                        <a class="invoice-action-edit" onclick="confirmDelete({{$role->id}})" style="cursor: pointer">
                                                                             <i class="material-icons">delete</i>
                                                                         </a>
                                                                     </form>

@@ -9,7 +9,8 @@
             <div class="container">
                 <div id="register-page" class="row">
                     <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 register-card bg-opacity-8">
-                        <form class="login-form">
+                        <form id="register-form" class="login-form" action="{{ route('user.register') }}" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="input-field col s12">
                                     <h5 class="ml-4">Register</h5>
@@ -19,34 +20,37 @@
                             <div class="row margin">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-2">person_outline</i>
-                                    <input id="username" type="text">
-                                    <label for="username" class="center-align">Username</label>
+                                    <input name="name" id="name" type="text" value="{{ old('name') }}" required>
+                                    <label for="name" class="center-align">Username</label>
+                                    <span style="color: red">@error('name') {{$message}} @enderror</span>
                                 </div>
                             </div>
                             <div class="row margin">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-2">mail_outline</i>
-                                    <input id="email" type="email">
+                                    <input name="email" id="email" type="email" value="{{ old('email') }}" required>
                                     <label for="email">Email</label>
+                                    <span style="color: red">@error('email') {{$message}} @enderror</span>
                                 </div>
                             </div>
                             <div class="row margin">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-2">lock_outline</i>
-                                    <input id="password" type="password">
+                                    <input name="password" id="password" type="password" value="{{ old('password') }}" required>
                                     <label for="password">Password</label>
+                                    <span style="color: red">@error('password') {{$message}} @enderror</span>
                                 </div>
                             </div>
                             <div class="row margin">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-2">lock_outline</i>
-                                    <input id="password-again" type="password">
-                                    <label for="password-again">Password again</label>
+                                    <input name="password_confirmation" id="password_confirmation" type="password" value="{{ old('password-again') }}" required>
+                                    <label for="password_confirmation">Password again</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <a href="index.html" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Register</a>
+                                    <a class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12" onclick="submit()"  type="submit">Register</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -62,4 +66,9 @@
         </div>
     </div>
 @endsection
+<script>
+    function submit(){
+        $('#register-form').submit();
+    }
+</script>
 

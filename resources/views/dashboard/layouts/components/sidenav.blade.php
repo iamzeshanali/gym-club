@@ -9,25 +9,25 @@
 
         <li class="navigation-header"><a class="navigation-header-text">Management</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.users') ? 'active' : ''}}" href="{{ route('dashboard.users') }}"><i class="material-icons">group</i><span class="menu-title" data-i18n="Users">Users</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.users.index') ? 'active' : ''}}" href="{{ route('dashboard.users.index') }}"><i class="material-icons">group</i><span class="menu-title" data-i18n="Users">Users</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.roles.index') ? 'active' : ''}}" href="{{ route('dashboard.roles.index') }}"><i class="material-icons">lock</i><span class="menu-title" data-i18n="Roles">Roles</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">group_work</i><span class="menu-title" data-i18n="Clubs">Clubs</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.index') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">group_work</i><span class="menu-title" data-i18n="Clubs">Clubs</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">assignment_ind</i><span class="menu-title" data-i18n="Members">Members</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.index') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">assignment_ind</i><span class="menu-title" data-i18n="Members">Members</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">info_outline</i><span class="menu-title" data-i18n="Inquiries">Inquiries</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.index') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">info_outline</i><span class="menu-title" data-i18n="Inquiries">Inquiries</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">date_range</i><span class="menu-title" data-i18n="Time log">Time Log</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.index') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">date_range</i><span class="menu-title" data-i18n="Time log">Time Log</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">book</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.index') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">book</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">fitness_center</i><span class="menu-title" data-i18n="Activities">Activities</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.index') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">fitness_center</i><span class="menu-title" data-i18n="Activities">Activities</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">playlist_add</i><span class="menu-title" data-i18n="Add On Activity">Add On Activity</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.index') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">playlist_add</i><span class="menu-title" data-i18n="Add On Activity">Add On Activity</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs') ? 'active' : ''}}" href="{{ route('dashboard.clubs') }}"><i class="material-icons">people</i><span class="menu-title" data-i18n="Membership">Membership</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.index') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">people</i><span class="menu-title" data-i18n="Membership">Membership</span></a>
         </li>
 {{--        <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>--}}
 {{--            <div class="collapsible-body">--}}

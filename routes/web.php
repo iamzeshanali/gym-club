@@ -17,15 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//ROUTE: Login | Auth
-Route::get('/login', function () {
-    return view('auth/login');
-})->name('login');
+Route::view('/login','auth/login')->name('login');
+Route::view('/register','auth/register')->name('register');
 
 //ROUTE: Register | Auth
-Route::get('/register', function () {
-    return view('auth/register');
-})->name('register');
+Route::post('/register', [\App\Http\Controllers\Auth\AuthController::class, 'register'])->name('user.register');
+Route::post('/login', [\App\Http\Controllers\Auth\AuthController::class, 'login'])->name('user.login');
+
+
 
 //ROUTE: Forgot Password | Auth
 Route::get('/forgot-password', function () {
@@ -39,12 +38,14 @@ Route::name('dashboard.')->group( function() {
         //    Route: Index
         Route::get('/', function () { return view('dashboard/main-page'); })->name('index');
 
-        Route::get('/users', function () { return view('dashboard/pages/clubs/clubs'); })->name('users');
-
         //    Route: Clubs
         Route::get('/clubs', function () { return view('dashboard/pages/clubs/clubs'); })->name('clubs');
 
         Route::resource('roles',\App\Http\Controllers\RoleController::class);
+
+        Route::resource('users',\App\Http\Controllers\UsersController::class);
+
+        Route::resource('clubs',\App\Http\Controllers\ClubsController::class);
     });
 
 });
