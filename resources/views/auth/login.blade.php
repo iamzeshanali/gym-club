@@ -19,8 +19,9 @@
                         <div class="row margin">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix pt-2">person_outline</i>
-                                <input name="username" id="username" type="text">
-                                <label for="username" class="center-align">Username</label>
+                                <input name="email" id="email" type="text">
+                                <label for="email" class="center-align">Email</label>
+                                <span style="color: red">@error('email') {{$message}} @enderror</span>
                             </div>
                         </div>
                         <div class="row margin">
@@ -28,6 +29,7 @@
                                 <i class="material-icons prefix pt-2">lock_outline</i>
                                 <input name="password" id="password" type="password">
                                 <label for="password">Password</label>
+                                <span style="color: red">@error('password') {{$message}} @enderror</span>
                             </div>
                         </div>
                         <div class="row">

@@ -18,13 +18,12 @@ class AuthController extends Controller
             'password_confirmation' => 'required|min:6',
         ]);
 
-        $role = Role::where('name', 'author')->get();
-        dd($role);
-        $user = new User();
+        $role = Role::where('name', 'owner')->get();
 
+        $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->role_id = $role;
+        $user->role_id = $role[0]["id"];
         $user->password = $request->password;
 
         $user->save();
@@ -32,8 +31,24 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        dd("login");
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        dd("Login");
+        $role = Role::where('name', 'owner')->get();
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role_id = $role[0]["id"];
+        $user->password = $request->password;
+
+        $user->save();
+
+        return redirect()->route('login');
     }
 }
