@@ -9,6 +9,17 @@
             <div class="container">
                 <div id="register-page" class="row">
                     <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 register-card bg-opacity-8">
+                        @error('roles-error')
+                            <div class="card-alert card gradient-45deg-red-pink" id="error-alert">
+                                <div class="card-content white-text">
+                                    <p>
+                                        <i class="material-icons">error</i> Failed : No Role Created Yet.</p>
+                                </div>
+                                <button type="button" onclick="document.getElementById('error-alert').style.display='none';return false;" class="close white-text" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @enderror
                         <form id="register-form" class="login-form" action="{{ route('user.register') }}" method="post">
                             @csrf
                             <div class="row">

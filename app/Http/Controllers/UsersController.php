@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -13,7 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-       return view('dashboard/pages/clubs/clubs');
+       return view('dashboard/pages/users/users');
     }
 
     /**
@@ -23,7 +24,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        return view('dashboard/pages/users/add-edit-user', compact('roles'));
     }
 
     /**
@@ -34,7 +36,15 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|unique:users',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required',
+            'comments' => 'required',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+        ]);
+        dd($request->all());
     }
 
     /**

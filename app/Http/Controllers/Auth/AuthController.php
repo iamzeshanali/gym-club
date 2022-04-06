@@ -21,16 +21,22 @@ class AuthController extends Controller
         ]);
 
         $role = Role::where('name', 'owner')->get();
+        if(count($role) > 0){
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->role_id = $role[0]["id"];
+            $user->password = Hash::make($request->password);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->role_id = $role[0]["id"];
-        $user->password = Hash::make($request->password);
+            $user->save();
 
-        $user->save();
+            return redirect()->route('login');
+        }else{
+            return back()->withErrors([
+                'roles-error' => 'The provided credentials do not match our records.',
+            ]);
+        }
 
-        return redirect()->route('login');
     }
 
     public function login(Request $request)
@@ -46,7 +52,9 @@ class AuthController extends Controller
             // Authentication passed...
             return redirect()->route('dashboard.index');
         }else{
-            return  redirect('login')->withSuccess('Email or Password Incorrect');
+            return back()->withErrors([
+                'login-failed' => 'The provided credentials do not match our records.',
+            ]);
         }
     }
 

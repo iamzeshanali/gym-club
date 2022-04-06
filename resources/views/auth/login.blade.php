@@ -9,6 +9,17 @@
         <div class="container">
             <div id="login-page" class="row">
                 <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
+                    @error('login-failed')
+                    <div class="card-alert card gradient-45deg-red-pink" id="error-alert">
+                        <div class="card-content white-text">
+                            <p>
+                                <i class="material-icons">error</i> Failed : Email or Password Incorrect.</p>
+                        </div>
+                        <button type="button" onclick="document.getElementById('error-alert').style.display='none';return false;" class="close white-text" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    @enderror
                     <form id="login-form" class="login-form" action="{{ route('user.login') }}" method="post">
                         @csrf
                         <div class="row">
@@ -19,7 +30,7 @@
                         <div class="row margin">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix pt-2">person_outline</i>
-                                <input name="email" id="email" type="text">
+                                <input name="email" id="email" type="text" value="{{ old('email') }}">
                                 <label for="email" class="center-align">Email</label>
                                 <span style="color: red">@error('email') {{$message}} @enderror</span>
                             </div>
@@ -27,7 +38,7 @@
                         <div class="row margin">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix pt-2">lock_outline</i>
-                                <input name="password" id="password" type="password">
+                                <input name="password" id="password" type="password" value="{{ old('password') }}">
                                 <label for="password">Password</label>
                                 <span style="color: red">@error('password') {{$message}} @enderror</span>
                             </div>

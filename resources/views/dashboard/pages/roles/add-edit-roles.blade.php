@@ -1,9 +1,6 @@
 @extends('dashboard.layouts.index')
 @section('title', 'GymBook | Roles')
 @section('page-css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/flag-icon/css/flag-icon.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/themes/vertical-modern-menu-template/materialize.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/themes/vertical-modern-menu-template/style.css') }}">
 @endsection
 
 @section('content')
