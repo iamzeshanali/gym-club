@@ -13,17 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('clubs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('role_id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('comments')->nullable();
-            $table->string('user_image')->nullable();
-            $table->rememberToken()->nullable();
+            $table->bigInteger('user_id');
+            $table->string('club_name');
+            $table->string('type');
+            $table->longText('address');
+            $table->string('contact_name');
+            $table->string('contact_email');
+            $table->string('mobile');
+            $table->string('status');
+            $table->string('note')->nullable();
+            $table->string('comment')->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('clubs');
     }
 };

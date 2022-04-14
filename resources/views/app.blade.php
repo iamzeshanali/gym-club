@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/themes/vertical-modern-menu-template/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/pages/dashboard-modern.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/pages/intro.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 
     <!-- END: Page Level CSS-->
     @yield('page-css')

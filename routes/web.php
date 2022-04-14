@@ -45,6 +45,22 @@ Route::name('dashboard.')->group( function() {
         Route::resource('users',\App\Http\Controllers\UsersController::class);
 
         Route::resource('clubs',\App\Http\Controllers\ClubsController::class);
+
+        Route::resource('user-clubs-config',\App\Http\Controllers\UsersClubsConfigController::class);
+
+        Route::resource('subscriptions',\App\Http\Controllers\SubscriptionController::class);
+
+        Route::resource('activities',\App\Http\Controllers\ActivityController::class);
+
+        Route::resource('addons',\App\Http\Controllers\AddOnController::class);
+
+        Route::resource('memberships',\App\Http\Controllers\MembershipController::class);
+
+        Route::resource('inquiries',\App\Http\Controllers\InquiryController::class);
+
+        Route::resource('members',\App\Http\Controllers\MemberController::class);
+
+        Route::resource('timelogs',\App\Http\Controllers\TimelogController::class);
     });
 
 });

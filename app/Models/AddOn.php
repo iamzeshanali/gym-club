@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class AddOn extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'name'
+        'add_on_code', 'add_on_description', 'status'
     ];
 
-    public function user(){
-        return $this->hasOne(User::class);
+    public function club(){
+        return $this->belongsTo(Club::class);
     }
 }

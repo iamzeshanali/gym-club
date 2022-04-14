@@ -62,12 +62,3 @@
     </div>
 @endsection
 
-@section('page-scripts')
-    <script src="{{ asset('vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('vendors/data-tables/js/dataTables.select.min.js') }}"></script>
-    <script src="{{ asset('vendors/data-tables/js/datatables.checkboxes.min.js') }}"></script>
-
-    <script src="{{ asset('js/scripts/data-tables.js') }}"></script>
-
-@endsection

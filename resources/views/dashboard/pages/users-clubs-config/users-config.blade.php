@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.index')
-@section('title', 'GymBook | Users')
+@section('title', 'GymBook | User Config')
 @section('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('vendors/flag-icon/css/flag-icon.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('vendors/data-tables/css/jquery.dataTables.min.css') }}">
@@ -20,7 +20,7 @@
                             <ol class="breadcrumbs mb-0">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">Users</a>
+                                <li class="breadcrumb-item"><a href="#">Users Config</a>
                                 </li>
                                 <li class="breadcrumb-item active">ViewAll
                                 </li>
@@ -32,7 +32,7 @@
             <div class="col s12">
                 <div class="container">
                     <div class="section section-data-tables">
-                        <a class="waves-effect waves-light btn gradient-45deg-purple-deep-orange z-depth-4 mr-1 mb-1 right" href="{{ route('dashboard.users.create') }}">+ Add New User</a>
+                        <a class="waves-effect waves-light btn gradient-45deg-purple-deep-orange z-depth-4 mr-1 mb-1 right" href="{{ route('dashboard.user-clubs-config.create') }}">+ Add New Config</a>
                         <!-- Page Length Options -->
                         <div class="row">
                             <div class="col s12">
@@ -45,43 +45,37 @@
                                                     <thead>
                                                     <tr>
                                                         <th>User</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Phone</th>
-                                                        <th>Role</th>
-                                                        <th>Comments</th>
+                                                        <th>Max Clubs</th>
+                                                        <th>Max User</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($users as $user)
+                                                    @foreach($configs as $config)
                                                         <tr>
                                                             <td>
-                                                                <span class="avatar-contact avatar-online">
-                                                                    <img src="{{ isset($user->user_image) ? url('images/'.$user->user_image) : url('images/unknown.jpg')}}" alt="avatar">
-                                                                </span>
+                                                                <div class="chip gradient-45deg-purple-deep-orange white-text">
+                                                                    <img src="{{ isset($config->user->user_image) ? url('images/'.$config->user->user_image) : url('images/unknown.jpg')}}" alt="Contact Person">
+                                                                    {{$config->user->name}}
+                                                                </div>
                                                             </td>
-                                                            <td>{{$user->name}}</td>
-                                                            <td>{{$user->email}}</td>
-                                                            <td>{{$user->phone}}</td>
                                                             <td>
-                                                                <div class="chip {{ $user->role->name == 'admin' ? 'gradient-45deg-purple-deep-orange' : 'cyan' }} white-text">{{ucfirst($user->role->name)}}</div>
-                                                            </td>
-                                                            <td>{{$user->comments}}</td>
+                                                                <div class="chip cyan white-text">{{$config->max_clubs}}</div></td>
+                                                            <td>{{$config->max_users}}</td>
                                                             <td>
                                                                 <div class="invoice-action">
-                                                                    <a href="{{ route('dashboard.users.edit', $user->id) }}" class="invoice-action-edit mr-4">
+                                                                    <a href="{{ route('dashboard.user-clubs-config.edit', $config->id) }}" class="invoice-action-edit mr-4">
                                                                         <i class="material-icons" style="color: #6b26a1">edit</i>
                                                                     </a>
 
                                                                     <form
-                                                                        id="del-form-{{$user->id}}"
+                                                                        id="del-form-{{$config->id}}"
                                                                         method="post"
-                                                                        action="{{route('dashboard.users.destroy', $user->id)}}" style="display: inline !important;">
+                                                                        action="{{route('dashboard.user-clubs-config.destroy', $config->id)}}" style="display: inline !important;">
                                                                         @csrf
                                                                         @method('DELETE')
 
-                                                                        <a class="invoice-action-edit" onclick="confirmDelete({{$user->id}})" style="cursor: pointer">
+                                                                        <a class="invoice-action-edit" onclick="confirmDelete({{$config->id}})" style="cursor: pointer">
                                                                             <i class="material-icons"  style="color: #f1654d">delete</i>
                                                                         </a>
                                                                     </form>
@@ -95,11 +89,8 @@
                                                     <tfoot>
                                                     <tr>
                                                         <th>User</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Phone</th>
-                                                        <th>Role</th>
-                                                        <th>Comments</th>
+                                                        <th>Max Clubs</th>
+                                                        <th>Max User</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                     </tfoot>

@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('timelogs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('role_id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('comments')->nullable();
-            $table->string('user_image')->nullable();
-            $table->rememberToken()->nullable();
+            $table->bigInteger('club_id');
+            $table->bigInteger('member_id');
+            $table->string('time_out');
+            $table->string('time_in');
+            $table->string('source');
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
@@ -37,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('timelogs');
     }
 };

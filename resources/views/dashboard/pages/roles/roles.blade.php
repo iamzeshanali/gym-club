@@ -56,9 +56,6 @@
                                                             <td>{{$role->name}}</td>
                                                             <td>
                                                                 <div class="invoice-action">
-                                                                    <a href="app-invoice-view.html" class="invoice-action-view mr-4">
-                                                                        <i class="material-icons">remove_red_eye</i>
-                                                                    </a>
                                                                     <a href="{{ route('dashboard.roles.edit', $role->id) }}" class="invoice-action-edit mr-4">
                                                                         <i class="material-icons">edit</i>
                                                                     </a>
