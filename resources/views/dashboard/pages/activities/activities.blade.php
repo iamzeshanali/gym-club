@@ -32,7 +32,7 @@
             <div class="col s12">
                 <div class="container">
                     <div class="section section-data-tables">
-                        <a class="waves-effect waves-light btn gradient-45deg-purple-deep-orange z-depth-4 mr-1 mb-1 right" href="{{ route('dashboard.activities.create') }}">+ Add New Subscription</a>
+                        <a class="waves-effect waves-light btn gradient-45deg-purple-deep-orange z-depth-4 mr-1 mb-1 right" href="{{ route('dashboard.activities.create') }}">+ Add New Activity</a>
                         <!-- Page Length Options -->
                         <div class="row">
                             <div class="col s12">

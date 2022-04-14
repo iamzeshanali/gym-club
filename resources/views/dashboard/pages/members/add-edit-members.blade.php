@@ -37,7 +37,7 @@
                     @if(isset($member))
                         @method('PUT')
                     @endif
-                    <div class="row">
+                    <div class="row" style="max-width: 100%">
                         <div class="col s12">
                             <div class="row mb-4">
                                 <div class="col s12 m4 mt-2">
@@ -74,9 +74,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-4">
+                    <div class="row mt-4" style="max-width: 100%">
                         <div class="col s12 m6">
-
                             <div class="row">
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">group</i>

@@ -62,7 +62,6 @@ class MemberController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'mobile' => 'required',
-            'member_image' => 'required',
             'dob' => 'required',
             'gender' => 'required',
             'status' => 'required',
@@ -90,10 +89,16 @@ class MemberController extends Controller
                         $member->image = $member_image->getClientOriginalName();
                     }
                 }
+            }else{
+                $member->image = 'unknown.jpg';
             }
         }else{
-            $member_image->move(public_path('images'), $member_image->getClientOriginalName());
-            $member->image = $member_image->getClientOriginalName();
+            if(isset($member_image)){
+                $member_image->move(public_path('images'), $member_image->getClientOriginalName());
+                $member->image = $member_image->getClientOriginalName();
+            }else{
+                $member->image = 'unknown.jpg';
+            }
         }
         $member->dob = $request->dob;
         $member->gender = $request->gender;

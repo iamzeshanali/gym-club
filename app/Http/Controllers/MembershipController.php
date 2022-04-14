@@ -67,7 +67,6 @@ class MembershipController extends Controller
         $membership->activity_id = $request->activity;
         $membership->description = $request->description;
         $membership->price = $request->price;
-        $membership->status = 'active';
         $membership->save();
 
         return redirect()->route('dashboard.memberships.index');

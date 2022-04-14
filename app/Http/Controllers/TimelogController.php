@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Club;
 use App\Models\Member;
 use App\Models\Timelog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,12 +18,33 @@ class TimelogController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->search){
-            dd($request->search);
-        }
         $members = Member::where('club_id','1')->get();
+        $timelogs = Timelog::where('club_id','1')->get();
 
-        return view('dashboard/pages/timelog/timelogs', compact('members'));
+
+        if($request->search){
+            $data = explode("|",$request->search);
+            $club = trim($data[0]);
+            $email = trim($data[1]);
+
+            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $member = Member::where('email',$email)->get();
+
+            date_default_timezone_set("Asia/Karachi");
+            $date = date("H:i:s");
+
+            $timelog = new Timelog();
+            $timelog->club_id = $clubs[0]->id;
+            $timelog->member_id = $member[0]->id;
+            $timelog->time_in = $date;
+            $timelog->time_out = 0;
+            $timelog->source = '';
+
+            $timelog->save();
+        }
+
+
+        return view('dashboard/pages/timelog/timelogs', compact('members','timelogs'));
     }
 
     /**

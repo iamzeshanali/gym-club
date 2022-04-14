@@ -19,9 +19,9 @@
                             <div id="search-wrapper" class="card z-depth-0 search-image center-align p-35">
                                 <div class="card-content">
                                     <h5 class="center-align mb-3">How can we help you?</h5>
-                                    <form id="search-form" action="{{ route('dashboard.timelogs.index') }}" >
+                                    <form id="search-form" action="{{ route('dashboard.timelogs.index') }}" method="post">
                                     <input list="vendor" autocomplete="off"  type="text" placeholder="Search with Member Name/ Email/ Mobile..." id="search" name="search"
-                                           class="search-box" style="width:80%;padding-left: 15px;border-radius: 0%; box-shadow: 3px 3px 14px #455a64;">
+                                           class="search-box" style="width:80%;padding-left: 15px;border-radius: 50px; box-shadow: 3px 3px 14px #455a64;">
 
                                     <datalist id="vendor">
                                         @foreach($members as $member)
@@ -56,30 +56,28 @@
                                                     <thead>
                                                     <tr>
                                                         <th>User</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Mobile</th>
-
-                                                        <th>Actions</th>
+                                                        <th>In Time</th>
+                                                        <th>Out Time</th>
+                                                        <th>Time Spent</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($members as $member)
+                                                    @foreach($timelogs as $timelog)
                                                         <tr>
                                                             <td>
                                                                 <span class="avatar-contact avatar-online">
-                                                                    <img src="{{ isset($member->image) ? url('images/'.$member->image) : url('images/unknown.jpg')}}" alt="avatar">
+                                                                    <img src="{{ isset($timelog->member->image) ? url('images/'.$timelog->member->image) : url('images/unknown.jpg')}}" alt="avatar">
                                                                 </span>
                                                             </td>
-                                                            <td>{{$member->name}}</td>
-                                                            <td>{{$member->email}}</td>
-                                                            <td>{{$member->mobile}}</td>
+                                                            <td>{{$timelog->time_in}}</td>
                                                             <td>
-                                                                <div class="invoice-action">
-                                                                    <a href="{{ route('dashboard.members.edit', $member->id) }}" class="btn gradient-45deg-purple-deep-orange mr-4">Check In
-                                                                    </a>
-                                                                </div>
+                                                                @if($timelog->time_out == "0")
+                                                                    <a href="{{ route('dashboard.members.edit', $timelog->id) }}" class="btn gradient-45deg-purple-deep-orange mr-4">Check In</a>
+                                                                @else
+                                                                    {{$timelog->time_out}}
+                                                                @endif
                                                             </td>
+                                                            <td>{{$timelog->time_out}}</td>
 
 
                                                         </tr>
@@ -88,11 +86,9 @@
                                                     <tfoot>
                                                     <tr>
                                                         <th>User</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Mobile</th>
-
-                                                        <th>Actions</th>
+                                                        <th>In Time</th>
+                                                        <th>Out Time</th>
+                                                        <th>Time Spent</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>

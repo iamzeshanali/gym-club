@@ -37,7 +37,7 @@
                     @if(isset($membership))
                         @method('PUT')
                     @endif
-                    <div class="row mt-4">
+                    <div class="row mt-4" style="max-width: 100%">
                         <div class="col s12 m6">
 
                             <div class="row">

@@ -17,12 +17,6 @@
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.*') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">group_work</i><span class="menu-title" data-i18n="Clubs">Clubs</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.members.*') ? 'active' : ''}}" href="{{ route('dashboard.members.index') }}"><i class="material-icons">assignment_ind</i><span class="menu-title" data-i18n="Members">Members</span></a>
-        </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.inquiries.*') ? 'active' : ''}}" href="{{ route('dashboard.inquiries.index') }}"><i class="material-icons">info_outline</i><span class="menu-title" data-i18n="Inquiries">Inquiries</span></a>
-        </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.timelogs.*') ? 'active' : ''}}" href="{{ route('dashboard.timelogs.index') }}"><i class="material-icons">date_range</i><span class="menu-title" data-i18n="Time log">Time Log</span></a>
-        </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.subscriptions.*') ? 'active' : ''}}" href="{{ route('dashboard.subscriptions.index') }}"><i class="material-icons">book</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.activities.*') ? 'active' : ''}}" href="{{ route('dashboard.activities.index') }}"><i class="material-icons">fitness_center</i><span class="menu-title" data-i18n="Activities">Activities</span></a>
@@ -30,6 +24,12 @@
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.addons.*') ? 'active' : ''}}" href="{{ route('dashboard.addons.index') }}"><i class="material-icons">playlist_add</i><span class="menu-title" data-i18n="Add On Activity">Add On Activity</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.memberships.*') ? 'active' : ''}}" href="{{ route('dashboard.memberships.index') }}"><i class="material-icons">people</i><span class="menu-title" data-i18n="Membership">Membership</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.members.*') ? 'active' : ''}}" href="{{ route('dashboard.members.index') }}"><i class="material-icons">assignment_ind</i><span class="menu-title" data-i18n="Members">Members</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.inquiries.*') ? 'active' : ''}}" href="{{ route('dashboard.inquiries.index') }}"><i class="material-icons">info_outline</i><span class="menu-title" data-i18n="Inquiries">Inquiries</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.timelogs.*') ? 'active' : ''}}" href="{{ route('dashboard.timelogs.index') }}"><i class="material-icons">date_range</i><span class="menu-title" data-i18n="Time log">Time Log</span></a>
         </li>
 {{--        <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>--}}
 {{--            <div class="collapsible-body">--}}
