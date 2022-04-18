@@ -19,7 +19,7 @@
                             <div id="search-wrapper" class="card z-depth-0 search-image center-align p-35">
                                 <div class="card-content">
                                     <h5 class="center-align mb-3">How can we help you?</h5>
-                                    <form id="search-form" action="{{ route('dashboard.timelogs.index') }}" method="post">
+                                    <form id="search-form" action="{{ route('dashboard.timelogs.index') }}">
                                     <input list="vendor" autocomplete="off"  type="text" placeholder="Search with Member Name/ Email/ Mobile..." id="search" name="search"
                                            class="search-box" style="width:80%;padding-left: 15px;border-radius: 50px; box-shadow: 3px 3px 14px #455a64;">
 
@@ -112,7 +112,17 @@
 @section('page-scripts')
     <script>
         function submitSearchForm(){
-            $('#search-form').submit();
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                icon: 'warning',
+                dangerMode: true,
+                timer: 3000
+            }).then( () => {
+                alert("done");
+                // $('#search-form').submit();
+            });
+
         }
 
 

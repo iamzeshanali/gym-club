@@ -702,7 +702,6 @@
                 <div id="intro">
                     <div class="row">
                         <div class="col s12">
-
                             <div id="img-modal" class="modal white">
                                 <div class="modal-content">
                                     <div class="bg-img-div"></div>

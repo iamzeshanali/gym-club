@@ -23,6 +23,7 @@ class TimelogController extends Controller
 
 
         if($request->search){
+//            dd("done");
             $data = explode("|",$request->search);
             $club = trim($data[0]);
             $email = trim($data[1]);

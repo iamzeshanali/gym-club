@@ -30,37 +30,36 @@ Route::get('/forgot-password', function () {
     return view('auth/forgot-password');
 })->name('forgot-password');
 
+Route::middleware('auth')->group( function(){
+    //GROUP: Dashboard Routes | NAME: dashboard. | PREFIX: dashboard/
+    Route::name('dashboard.')->group( function() {
+        Route::prefix('dashboard')->group(function(){
+            //    Route: Index
+            Route::get('/', function () { return view('dashboard/main-page'); })->name('index');
+            //    Route: Clubs
+            Route::resource('roles',\App\Http\Controllers\RoleController::class);
 
-//GROUP: Dashboard Routes | NAME: dashboard. | PREFIX: dashboard/
-Route::name('dashboard.')->group( function() {
-    Route::prefix('dashboard')->group(function(){
-        //    Route: Index
-        Route::get('/', function () { return view('dashboard/main-page'); })->name('index');
+            Route::resource('users',\App\Http\Controllers\UsersController::class);
 
-        //    Route: Clubs
-        Route::get('/clubs', function () { return view('dashboard/pages/clubs/clubs'); })->name('clubs');
+            Route::resource('clubs',\App\Http\Controllers\ClubsController::class);
 
-        Route::resource('roles',\App\Http\Controllers\RoleController::class);
+            Route::resource('user-clubs-config',\App\Http\Controllers\UsersClubsConfigController::class);
 
-        Route::resource('users',\App\Http\Controllers\UsersController::class);
+            Route::resource('subscriptions',\App\Http\Controllers\SubscriptionController::class);
 
-        Route::resource('clubs',\App\Http\Controllers\ClubsController::class);
+            Route::resource('activities',\App\Http\Controllers\ActivityController::class);
 
-        Route::resource('user-clubs-config',\App\Http\Controllers\UsersClubsConfigController::class);
+            Route::resource('addons',\App\Http\Controllers\AddOnController::class);
 
-        Route::resource('subscriptions',\App\Http\Controllers\SubscriptionController::class);
+            Route::resource('memberships',\App\Http\Controllers\MembershipController::class);
 
-        Route::resource('activities',\App\Http\Controllers\ActivityController::class);
+            Route::resource('inquiries',\App\Http\Controllers\InquiryController::class);
 
-        Route::resource('addons',\App\Http\Controllers\AddOnController::class);
+            Route::resource('members',\App\Http\Controllers\MemberController::class);
 
-        Route::resource('memberships',\App\Http\Controllers\MembershipController::class);
-
-        Route::resource('inquiries',\App\Http\Controllers\InquiryController::class);
-
-        Route::resource('members',\App\Http\Controllers\MemberController::class);
-
-        Route::resource('timelogs',\App\Http\Controllers\TimelogController::class);
+            Route::resource('timelogs',\App\Http\Controllers\TimelogController::class);
+        });
     });
-
 });
+
+
