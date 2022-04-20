@@ -30,7 +30,6 @@ Route::get('/forgot-password', function () {
     return view('auth/forgot-password');
 })->name('forgot-password');
 
-
 //GROUP: Dashboard Routes | NAME: dashboard. | PREFIX: dashboard/
 Route::name('dashboard.')->group( function() {
     Route::prefix('dashboard')->group(function(){
@@ -38,7 +37,7 @@ Route::name('dashboard.')->group( function() {
         Route::get('/', function () { return view('dashboard/main-page'); })->name('index');
 
         //    Route: Clubs
-        Route::get('/clubs', function () { return view('dashboard/pages/clubs/clubs'); })->name('clubs');
+        Route::get('/change-clubs/{id}', [\App\Http\Controllers\ClubsController::class,'changeClub'])->name('changeClub');
 
         Route::resource('roles',\App\Http\Controllers\RoleController::class);
 

@@ -7,6 +7,7 @@ use App\Models\UserClubsConfig;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ClubsController extends Controller
 {
@@ -27,6 +28,12 @@ class ClubsController extends Controller
         return view('dashboard/pages/clubs/clubs', compact('clubs'));
     }
 
+    public function changeClub($id){
+            Session::remove('club_id');
+            Session::push('club_id',$id);
+
+        return redirect()->back();
+    }
     /**
      * Show the form for creating a new resource.
      *

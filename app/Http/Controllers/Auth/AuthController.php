@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserClubsConfig;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -30,6 +32,14 @@ class AuthController extends Controller
 
             $user->save();
 
+            if($user){
+                $config  = new UserClubsConfig();
+                $config->user_id = $user->id;
+                $config->max_clubs = 2;
+                $config->max_users = 2;
+
+                $config->save();
+            }
             return redirect()->route('login');
         }else{
             return back()->withErrors([
@@ -60,6 +70,7 @@ class AuthController extends Controller
 
     public function logout()
     {
+        Session::remove('club_id');
         Auth::logout();
         return redirect()->route('login');
     }

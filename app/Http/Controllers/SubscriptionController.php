@@ -17,6 +17,7 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
+//        dd(Auth::user()->club);
         if(Auth::user()->role->name == 'admin'){
             $subscriptions = Subscription::all();
         }else{

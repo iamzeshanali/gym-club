@@ -7,6 +7,7 @@ use App\Models\Club;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use MongoDB\Driver\Session;
 
 class ActivityController extends Controller
 {
@@ -20,8 +21,12 @@ class ActivityController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $activities = Activity::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
-            $activities = Activity::where('club_id',$clubs[0]->id)->get();
+            if(\Illuminate\Support\Facades\Session::exists('club_id')){
+                $activities = Activity::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            }else{
+                $activities = [];
+            }
+
         }
 
         return view('dashboard/pages/activities/activities', compact('activities'));
@@ -37,7 +42,7 @@ class ActivityController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
         return view('dashboard/pages/activities/add-edit-activity', compact('clubs'));
     }
@@ -96,7 +101,7 @@ class ActivityController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
         return view('dashboard/pages/activities/add-edit-activity', compact('clubs','activity'));
     }

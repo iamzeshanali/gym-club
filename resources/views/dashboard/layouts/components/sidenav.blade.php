@@ -17,7 +17,7 @@
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.clubs.*') ? 'active' : ''}}" href="{{ route('dashboard.clubs.index') }}"><i class="material-icons">group_work</i><span class="menu-title" data-i18n="Clubs">Clubs</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.subscriptions.*') ? 'active' : ''}}" href="{{ route('dashboard.subscriptions.index') }}"><i class="material-icons">book</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.subscriptions.*') ? 'active' : ''}}" href="{{ route('dashboard.subscriptions.index') }}" disabled><i class="material-icons">book</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.activities.*') ? 'active' : ''}}" href="{{ route('dashboard.activities.index') }}"><i class="material-icons">fitness_center</i><span class="menu-title" data-i18n="Activities">Activities</span></a>
         </li>
