@@ -22,7 +22,7 @@ class SubscriptionController extends Controller
             $subscriptions = Subscription::all();
         }else{
 
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
 
             foreach ($clubs as $club){
                 $subscriptions = Subscription::where('club_id',$club->id)->get();
@@ -44,7 +44,7 @@ class SubscriptionController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
 
         return view('dashboard/pages/subscriptions/add-edit-subscription', compact('clubs'));
@@ -106,8 +106,9 @@ class SubscriptionController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
+
         return view('dashboard/pages/subscriptions/add-edit-subscription', compact('subscription', 'clubs'));
     }
 

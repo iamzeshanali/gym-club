@@ -20,7 +20,7 @@ class MembershipController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $memberships = Membership::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             $memberships = Membership::where('club_id',$clubs[0]->id)->get();
         }
 
@@ -37,7 +37,7 @@ class MembershipController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
 
 //        dd($clubs[0]->subscription[0]->subscription_code);
@@ -94,7 +94,7 @@ class MembershipController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
 
 //        dd($clubs[0]->subscription[0]->subscription_code);

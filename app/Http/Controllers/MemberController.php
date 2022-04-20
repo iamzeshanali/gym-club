@@ -40,7 +40,7 @@ class MemberController extends Controller
             $clubs = Club::all();
             $memberships = Membership::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             $memberships = Membership::where('club_id',$clubs[0]->id)->get();
         }
 
@@ -142,7 +142,7 @@ class MemberController extends Controller
             $clubs = Club::all();
             $memberships = Membership::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             $memberships = Membership::where('club_id',$clubs[0]->id)->get();
         }
 

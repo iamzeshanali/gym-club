@@ -20,7 +20,7 @@ class InquiryController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $inquiries = Inquiry::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             $inquiries = Inquiry::where('club_id',$clubs[0]->id)->get();
         }
 
@@ -37,7 +37,7 @@ class InquiryController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
 
         return view('dashboard/pages/inquiry/add-edit-inquiry', compact('clubs'));
@@ -108,7 +108,7 @@ class InquiryController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
 
         return view('dashboard/pages/inquiry/add-edit-inquiry', compact('clubs', 'inquiry'));
