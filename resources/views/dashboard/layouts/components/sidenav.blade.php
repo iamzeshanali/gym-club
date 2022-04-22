@@ -9,7 +9,7 @@
 
         <li class="navigation-header"><a class="navigation-header-text">Management</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.users.*') ? 'active' : ''}}" href="{{ route('dashboard.users.index') }}"><i class="material-icons">group</i><span class="menu-title" data-i18n="Users">Users</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.users.*') ? 'active' : ''}}" href="{{ route('dashboard.users.index') }}"><i class="material-icons">group</i><span class="menu-title" data-i18n="Users">Team</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.roles.*') ? 'active' : ''}}" href="{{ route('dashboard.roles.index') }}"><i class="material-icons">lock</i><span class="menu-title" data-i18n="Roles">Roles</span></a>
         </li>

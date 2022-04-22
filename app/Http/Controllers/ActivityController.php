@@ -44,7 +44,13 @@ class ActivityController extends Controller
         }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
-        return view('dashboard/pages/activities/add-edit-activity', compact('clubs'));
+        $last = Activity::latest()->first();
+        if(isset($last)){
+            $code = 'act-'.$last->id+1;
+        }else{
+            $code = 'act-1';
+        }
+        return view('dashboard/pages/activities/add-edit-activity', compact('clubs','code'));
     }
 
     /**

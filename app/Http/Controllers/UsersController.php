@@ -51,7 +51,6 @@ class UsersController extends Controller
             'name' => 'required|min:3|unique:users',
             'email' => 'required|email|unique:users',
             'phone' => 'required',
-            'comments' => 'required',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
         ]);

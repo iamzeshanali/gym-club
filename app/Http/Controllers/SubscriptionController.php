@@ -17,18 +17,16 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
+
 //        dd(Auth::user()->club);
         if(Auth::user()->role->name == 'admin'){
             $subscriptions = Subscription::all();
         }else{
-
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
-
-            foreach ($clubs as $club){
-                $subscriptions = Subscription::where('club_id',$club->id)->get();
+            if(\Illuminate\Support\Facades\Session::exists('club_id')){
+                $subscriptions = Subscription::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            }else{
+                $subscriptions = [];
             }
-
-//            dd(Auth::user()->club);
         }
 
         return view('dashboard/pages/subscriptions/subscriptions', compact('subscriptions'));
@@ -44,10 +42,16 @@ class SubscriptionController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $$clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
 
-        return view('dashboard/pages/subscriptions/add-edit-subscription', compact('clubs'));
+        $last = Subscription::latest()->first();
+        if(isset($last)){
+            $code = 'sub-'.$last->id+1;
+        }else{
+            $code = 'sub-1';
+        }
+        return view('dashboard/pages/subscriptions/add-edit-subscription', compact('clubs','code'));
     }
 
     /**
@@ -58,13 +62,13 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'club' => 'required',
             'subscription_code' => 'required',
             'subscription_description' => 'required',
             'months' => 'required',
         ]);
-
         $subscription = new Subscription();
 
         $subscription->club_id = $request->club;
@@ -106,7 +110,7 @@ class SubscriptionController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
         return view('dashboard/pages/subscriptions/add-edit-subscription', compact('subscription', 'clubs'));
     }

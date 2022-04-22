@@ -16,13 +16,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col s10 m6 l6 breadcrumbs-left">
-                            <h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>Users</span></h5>
+                            <h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>Team</span></h5>
                             <ol class="breadcrumbs mb-0">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('dashboard.users.index')}}">Users</a>
+                                <li class="breadcrumb-item"><a href="{{route('dashboard.users.index')}}">Team</a>
                                 </li>
-                                <li class="breadcrumb-item active"> {{ isset($user) ? 'Edit' : 'Add' }} User
+                                <li class="breadcrumb-item active"> {{ isset($user) ? 'Edit' : 'Add' }} Team
                                 </li>
                             </ol>
                         </div>

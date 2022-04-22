@@ -66,8 +66,6 @@ class ClubsController extends Controller
                     'address' => 'required',
                     'mobile' => 'required',
                     'type' => 'required',
-                    'comment' => 'required',
-                    'note' => 'required',
                 ]);
 
                 $club = new Club();
@@ -138,8 +136,6 @@ class ClubsController extends Controller
             'address' => 'required',
             'mobile' => 'required',
             'type' => 'required',
-            'comment' => 'required',
-            'note' => 'required',
         ]);
 
 //        dd($request->all());

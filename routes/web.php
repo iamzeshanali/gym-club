@@ -30,16 +30,9 @@ Route::get('/forgot-password', function () {
     return view('auth/forgot-password');
 })->name('forgot-password');
 
-<<<<<<< HEAD
-//GROUP: Dashboard Routes | NAME: dashboard. | PREFIX: dashboard/
-Route::name('dashboard.')->group( function() {
-    Route::prefix('dashboard')->group(function(){
-        //    Route: Index
-        Route::get('/', function () { return view('dashboard/main-page'); })->name('index');
 
-        //    Route: Clubs
-        Route::get('/change-clubs/{id}', [\App\Http\Controllers\ClubsController::class,'changeClub'])->name('changeClub');
-=======
+//GROUP: Dashboard Routes | NAME: dashboard. | PREFIX: dashboard/
+
 Route::middleware('auth')->group( function(){
     //GROUP: Dashboard Routes | NAME: dashboard. | PREFIX: dashboard/
     Route::name('dashboard.')->group( function() {
@@ -52,7 +45,8 @@ Route::middleware('auth')->group( function(){
             Route::resource('users',\App\Http\Controllers\UsersController::class);
 
             Route::resource('clubs',\App\Http\Controllers\ClubsController::class);
->>>>>>> cb01a007a2cd4664d270021346076351f0754ce7
+
+            Route::get('/change-clubs/{id}', [\App\Http\Controllers\ClubsController::class,'changeClub'])->name('changeClub');
 
             Route::resource('user-clubs-config',\App\Http\Controllers\UsersClubsConfigController::class);
 
