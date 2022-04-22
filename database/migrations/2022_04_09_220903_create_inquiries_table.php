@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('inquiry_text');
             $table->string('source');
             $table->string('reference');
-            $table->string('comments');
+            $table->string('comments')->nullable();
             $table->string('followup');
             $table->string('enroll_status');
             $table->string('status');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();

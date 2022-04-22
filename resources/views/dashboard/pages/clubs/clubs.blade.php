@@ -69,6 +69,8 @@
                                                                 <div class="chip gradient-45deg-purple-deep-orange white-text">
                                                                     <img src="{{ isset($club->user->user_image) ? url('images/'.$club->user->user_image) : url('images/unknown.jpg')}}" alt="Contact Person">
                                                                     {{$club->user->name}}
+                                                                </div>
+                                                            </td>
                                                             <td>
                                                                 <div class="invoice-action">
                                                                     <a href="{{ route('dashboard.clubs.edit', $club->id) }}" class="invoice-action-edit mr-4">

@@ -6,6 +6,7 @@ use App\Models\Club;
 use App\Models\Member;
 use App\Models\Timelog;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,32 +17,11 @@ class TimelogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
 
-
-        if($request->search){
-//            dd("done");
-            $data = explode("|",$request->search);
-            $club = trim($data[0]);
-            $email = trim($data[1]);
-
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
-            $member = Member::where('email',$email)->get();
-
-            date_default_timezone_set("Asia/Karachi");
-            $date = date("H:i:s");
-
-            $timelog = new Timelog();
-            $timelog->club_id = $clubs[0]->id;
-            $timelog->member_id = $member[0]->id;
-            $timelog->time_in = $date;
-            $timelog->time_out = 0;
-            $timelog->source = '';
-            $timelog->save();
-        }
 
         return view('dashboard/pages/timelog/timelogs', compact('members','timelogs'));
     }
@@ -54,6 +34,7 @@ class TimelogController extends Controller
     public function create()
     {
         dd("done");
+
         return view('dashboard/pages/timelog/add-edit-timelog');
     }
 
@@ -65,7 +46,35 @@ class TimelogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        dd("done");
+        $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+        $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+
+        $data = explode("|",$request->search);
+        $club = trim($data[0]);
+        $email = trim($data[1]);
+
+        $member = Member::where('email',$email)->get();
+
+        date_default_timezone_set("Asia/Karachi");
+        $date = date("H:i:s");
+
+        $timelog = new Timelog();
+//            dd(\Illuminate\Support\Facades\Session::get('club_id'));
+        $timelog->club_id = \Illuminate\Support\Facades\Session::get('club_id')[0];
+        $timelog->member_id = $member[0]->id;
+        $timelog->time_in = $date;
+        $timelog->time_out = 0;
+        $timelog->timespent = 0;
+        $timelog->source = '';
+//            dd($timelog);
+        $timelog->save();
+
+        $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+        $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+
+
+        return view('dashboard/pages/timelog/timelogs', compact('members','timelogs'));
     }
 
     /**
@@ -87,8 +96,22 @@ class TimelogController extends Controller
      */
     public function edit(Timelog $timelog)
     {
-        $club = Club::find($id);
-        return view('dashboard/pages/clubs/add-edit-club', compact('club'));
+        $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+        $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+
+        date_default_timezone_set("Asia/Karachi");
+        $date = date("H:i:s");
+
+        $timelog->time_out = $date;
+
+        $timein = strtotime($timelog->time_in);
+        $timeout = strtotime($timelog->time_out);
+
+        $timespent = $timeout - $timein;
+        $timelog->timespent = date("H:i", $timespent);
+        $timelog->save();
+//        dd(date("H:i", $timespent));
+        return view('dashboard/pages/timelog/timelogs', compact('members','timelogs'));
     }
 
     /**
@@ -111,8 +134,7 @@ class TimelogController extends Controller
      */
     public function destroy(Timelog $timelog)
     {
-        $club = Club::find($id);
-        $club->delete();
-        return redirect()->route('dashboard.clubs.index');
+        $timelog->delete();
+        return redirect()->back();
     }
 }

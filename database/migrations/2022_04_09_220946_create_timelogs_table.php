@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('member_id');
             $table->string('time_out');
             $table->string('time_in');
+            $table->string('timespent')->nullable();
             $table->string('source');
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();

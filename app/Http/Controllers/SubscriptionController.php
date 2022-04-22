@@ -42,7 +42,7 @@ class SubscriptionController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $$clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
 
         $last = Subscription::latest()->first();

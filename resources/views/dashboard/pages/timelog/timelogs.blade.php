@@ -19,7 +19,8 @@
                             <div id="search-wrapper" class="card z-depth-0 search-image center-align p-35">
                                 <div class="card-content">
                                     <h5 class="center-align mb-3">How can we help you?</h5>
-                                    <form id="search-form" action="{{ route('dashboard.timelogs.create') }}">
+                                    <form id="search-form" action="{{ route('dashboard.timelogs.store') }}" method="post">
+                                        @csrf
                                     <input list="vendor" autocomplete="off"  type="text" placeholder="Search with Member Name/ Email/ Mobile..." id="search" name="search"
                                            class="search-box" style="width:80%;padding-left: 15px;border-radius: 50px; box-shadow: 3px 3px 14px #455a64;">
 
@@ -59,25 +60,42 @@
                                                         <th>In Time</th>
                                                         <th>Out Time</th>
                                                         <th>Time Spent</th>
+                                                        <th>Actions</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($timelogs as $timelog)
                                                         <tr>
                                                             <td>
-                                                                <span class="avatar-contact avatar-online">
-                                                                    <img src="{{ isset($timelog->member->image) ? url('images/'.$timelog->member->image) : url('images/unknown.jpg')}}" alt="avatar">
-                                                                </span>
+                                                                    <div class="chip gradient-45deg-purple-deep-orange white-text">
+                                                                    <img src="{{ isset($timelog->member->image) ? url('images/'.$timelog->member->image) : url('images/unknown.jpg')}}" alt="Contact Person">
+                                                                    {{ $timelog->member->name}}
+                                                                </div>
                                                             </td>
                                                             <td>{{$timelog->time_in}}</td>
                                                             <td>
                                                                 @if($timelog->time_out == "0")
-                                                                    <a href="{{ route('dashboard.members.edit', $timelog->id) }}" class="btn gradient-45deg-purple-deep-orange mr-4">Check In</a>
+                                                                    <a href="{{ route('dashboard.timelogs.edit', $timelog->id) }}" class="btn gradient-45deg-purple-deep-orange mr-4">Check Out</a>
                                                                 @else
                                                                     {{$timelog->time_out}}
                                                                 @endif
                                                             </td>
-                                                            <td>{{$timelog->time_out}}</td>
+                                                            <td>{{$timelog->timespent}}</td>
+                                                            <td>
+                                                                <div class="invoice-action">
+                                                                    <form
+                                                                        id="del-form-{{$timelog->id}}"
+                                                                        method="post"
+                                                                        action="{{route('dashboard.timelogs.destroy', $timelog->id)}}" style="display: inline !important;">
+                                                                        @csrf
+                                                                        @method('DELETE')
+
+                                                                        <a class="invoice-action-edit" onclick="confirmDelete({{$timelog->id}})" style="cursor: pointer">
+                                                                            <i class="material-icons"  style="color: #f1654d">delete</i>
+                                                                        </a>
+                                                                    </form>
+                                                                </div>
+                                                            </td>
 
 
                                                         </tr>
@@ -120,6 +138,35 @@
                 timer: 3000
             }).then( () => {
                 $('#search-form').submit();
+            });
+
+        }
+        function confirmDelete(id){
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                icon: 'warning',
+                dangerMode: true,
+                buttons: {
+                    cancel: 'No, Please!',
+                    delete: 'Yes, Delete It'
+                }
+            }).then(function (willDelete) {
+                if (willDelete) {
+                    val_id = "#del-form-"+id;
+                    // alert(val_id);
+                    $(val_id).submit();
+
+                    swal({
+                        title: "Poof! Role "+data_id+" has been deleted!",
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your imaginary file is safe", {
+                        title: 'Cancelled',
+                        icon: "error",
+                    });
+                }
             });
 
         }

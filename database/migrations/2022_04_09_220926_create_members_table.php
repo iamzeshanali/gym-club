@@ -30,8 +30,8 @@ return new class extends Migration
             $table->date('enrollment_date');
             $table->date('start_date');
             $table->string('status');
-            $table->string('note');
-            $table->string('comments');
+            $table->string('note')->nullable();
+            $table->string('comments')->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
