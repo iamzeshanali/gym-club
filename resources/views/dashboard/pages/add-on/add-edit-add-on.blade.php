@@ -57,8 +57,8 @@
                                 </div>
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">person_pin</i>
-                                    <input id="addon_code" name="addon_code" type="text" class="validate" value="{{ isset($addon) ? $addon->add_on_code : old('addon_code') }}"
-                                           data-error=".errorTxt2">
+                                    <input id="addon_code" name="addon_code" type="text" class="validate" value="{{ isset($addon) ? $addon->add_on_code : $code }}"
+                                           data-error=".errorTxt2" readonly>
                                     <label for="addon_code">AddOn Code</label>
                                     <small class="errorTxt2" style="color: red">@error('addon_code') {{$message}} @enderror</small>
                                 </div>

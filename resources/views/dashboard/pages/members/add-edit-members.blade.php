@@ -93,8 +93,8 @@
                                 </div>
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">person_pin</i>
-                                    <input id="member_code" name="member_code" type="text" class="validate" value="{{ isset($member) ? $member->member_code : old('member_code') }}"
-                                           data-error=".errorTxt2">
+                                    <input id="member_code" name="member_code" type="text" class="validate" value="{{ isset($member) ? $member->member_code : $code }}"
+                                           data-error=".errorTxt2" readonly>
                                     <label for="member_code">Member Code</label>
                                     <small class="errorTxt2" style="color: red">@error('member_code') {{$message}} @enderror</small>
                                 </div>

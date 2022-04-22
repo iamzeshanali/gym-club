@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddOn;
 use App\Models\Club;
 use App\Models\Member;
 use App\Models\Membership;
@@ -43,8 +44,13 @@ class MemberController extends Controller
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             $memberships = Membership::where('club_id',$clubs[0]->id)->get();
         }
-
-        return view('dashboard/pages/members/add-edit-members', compact('clubs', 'memberships'));
+        $last = Member::latest()->first();
+        if(isset($last)){
+            $code = 'member-'.$last->id+1;
+        }else{
+            $code = 'member-1';
+        }
+        return view('dashboard/pages/members/add-edit-members', compact('clubs', 'memberships','code'));
     }
 
     /**
@@ -64,7 +70,6 @@ class MemberController extends Controller
             'mobile' => 'required',
             'dob' => 'required',
             'gender' => 'required',
-            'status' => 'required',
             'enrollment_type' => 'required',
             'enrollment_date' => 'required',
             'membership' => 'required'
@@ -77,7 +82,11 @@ class MemberController extends Controller
         $member->name = $request->name;
         $member->email = $request->email;
         $member->mobile = $request->mobile;
-
+        if ($request->status){
+            $member->status = $request->status;
+        }else{
+            $member->status = 'pending';
+        }
         $member_image = $request->member_image;
         if(isset($member->image)){
             if(isset($member_image)){
@@ -108,8 +117,6 @@ class MemberController extends Controller
 
         $member->enrollment_type = $request->enrollment_type;
         $member->enrollment_date = $request->enrollment_date;
-
-        $member->status = $request->status;
         $member->comments = $request->comment;
         $member->note = $request->note;
 //        dd($member);
@@ -164,10 +171,8 @@ class MemberController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'mobile' => 'required',
-            'member_image' => 'required',
             'dob' => 'required',
             'gender' => 'required',
-            'status' => 'required',
             'enrollment_type' => 'required',
             'enrollment_date' => 'required',
             'membership' => 'required'
@@ -178,7 +183,11 @@ class MemberController extends Controller
         $member->name = $request->name;
         $member->email = $request->email;
         $member->mobile = $request->mobile;
-
+        if ($request->status){
+            $member->status = $request->status;
+        }else{
+            $member->status = 'pending';
+        }
         $member_image = $request->member_image;
         if(isset($member->image)){
             if(isset($member_image)){
@@ -203,8 +212,6 @@ class MemberController extends Controller
 
         $member->enrollment_type = $request->enrollment_type;
         $member->enrollment_date = $request->enrollment_date;
-
-        $member->status = $request->status;
         $member->comments = $request->comment;
         $member->note = $request->note;
 //        dd($member);

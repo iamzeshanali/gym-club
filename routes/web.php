@@ -30,7 +30,9 @@ Route::get('/forgot-password', function () {
     return view('auth/forgot-password');
 })->name('forgot-password');
 
+
 //GROUP: Dashboard Routes | NAME: dashboard. | PREFIX: dashboard/
+
 Route::middleware('auth')->group( function(){
     //GROUP: Dashboard Routes | NAME: dashboard. | PREFIX: dashboard/
     Route::name('dashboard.')->group( function() {

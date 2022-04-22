@@ -57,8 +57,8 @@
                                 </div>
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">person_pin</i>
-                                    <input id="inquiry_code" name="inquiry_code" type="text" class="validate" value="{{ isset($inquiry) ? $inquiry->inquiry_code : old('inquiry_code') }}"
-                                           data-error=".errorTxt2">
+                                    <input id="inquiry_code" name="inquiry_code" type="text" class="validate" value="{{ isset($inquiry) ? $inquiry->inquiry_code : $code }}"
+                                           data-error=".errorTxt2" readonly>
                                     <label for="inquiry_code">Inquiry Code</label>
                                     <small class="errorTxt2" style="color: red">@error('inquiry_code') {{$message}} @enderror</small>
                                 </div>

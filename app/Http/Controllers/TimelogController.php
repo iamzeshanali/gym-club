@@ -18,8 +18,8 @@ class TimelogController extends Controller
      */
     public function index(Request $request)
     {
-        $members = Member::where('club_id','1')->get();
-        $timelogs = Timelog::where('club_id','1')->get();
+        $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+        $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
 
 
         if($request->search){
@@ -40,10 +40,8 @@ class TimelogController extends Controller
             $timelog->time_in = $date;
             $timelog->time_out = 0;
             $timelog->source = '';
-
             $timelog->save();
         }
-
 
         return view('dashboard/pages/timelog/timelogs', compact('members','timelogs'));
     }
@@ -55,6 +53,7 @@ class TimelogController extends Controller
      */
     public function create()
     {
+        dd("done");
         return view('dashboard/pages/timelog/add-edit-timelog');
     }
 

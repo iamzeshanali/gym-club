@@ -20,7 +20,7 @@ class AddOnController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $addons = AddOn::all();
         }else{
-            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            $clubs = Club::where('user_id',Auth::user()->id)->get();
             $addons = AddOn::where('club_id',$clubs[0]->id)->get();
         }
 
@@ -39,7 +39,13 @@ class AddOnController extends Controller
         }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
-        return view('dashboard/pages/add-on/add-edit-add-on', compact('clubs'));
+        $last = AddOn::latest()->first();
+        if(isset($last)){
+            $code = 'addon-'.$last->id+1;
+        }else{
+            $code = 'addon-1';
+        }
+        return view('dashboard/pages/add-on/add-edit-add-on', compact('clubs','code'));
     }
 
     /**

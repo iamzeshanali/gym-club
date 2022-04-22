@@ -57,8 +57,8 @@
                                 </div>
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">person_pin</i>
-                                    <input id="subscription_code" name="subscription_code" type="text" class="validate" value="{{ isset($subscription) ? $subscription->subscription_code : old('subscription_code') }}"
-                                           data-error=".errorTxt2">
+                                    <input id="subscription_code" name="subscription_code" type="text" class="validate" value="{{ isset($subscription) ? $subscription->subscription_code : $code }}"
+                                           data-error=".errorTxt2" readonly>
                                     <label for="subscription_code">Subscription Code</label>
                                     <small class="errorTxt2" style="color: red">@error('subscription_code') {{$message}} @enderror</small>
                                 </div>

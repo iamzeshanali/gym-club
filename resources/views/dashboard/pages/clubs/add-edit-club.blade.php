@@ -90,7 +90,7 @@
                         </div>
                         <div class="col s12 m6">
                             <div class="row">
-                                @if(\Illuminate\Support\Facades\Auth::user()->role->name == 'owner')
+                                @if(\Illuminate\Support\Facades\Auth::user()->role->name == 'admin')
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">group</i>
                                     <select name="status">
@@ -104,7 +104,16 @@
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">group</i>
                                     <select name="type">
-                                        <option value="gym">Gym</option>
+                                        @if(isset($club))
+                                            <option value="Gym" {{$club->type == 'Gym' ? 'selected' : ''}}>Gym</option>
+                                            <option value="Yoga Center" {{$club->type == 'Yoga Center' ? 'selected' : ''}}>Yoga Center</option>
+                                            <option value="Fitness Club" {{$club->type == 'Fitness Club' ? 'selected' : ''}}>Fitness Club</option>
+                                        @else
+                                            <option value="Gym">Gym</option>
+                                            <option value="Yoga Center">Yoga Center</option>
+                                            <option value="Fitness Club">Fitness Club</option>
+                                        @endif
+
                                     </select>
                                     <label>Type</label>
                                     <small class="errorTxt3" style="color: red">@error('type') {{$message}} @enderror</small>

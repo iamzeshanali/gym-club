@@ -39,8 +39,13 @@ class InquiryController extends Controller
         }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
-
-        return view('dashboard/pages/inquiry/add-edit-inquiry', compact('clubs'));
+        $last = Inquiry::latest()->first();
+        if(isset($last)){
+            $code = 'member-'.$last->id+1;
+        }else{
+            $code = 'member-1';
+        }
+        return view('dashboard/pages/inquiry/add-edit-inquiry', compact('clubs','code'));
     }
 
     /**
@@ -58,11 +63,8 @@ class InquiryController extends Controller
             'email' => 'required|email',
             'mobile' => 'required',
             'inquiry_text' => 'required',
-            'status' => 'required',
             'enrollment_status' => 'required',
             'followups' => 'required',
-            'comment' => 'required',
-            'note' => 'required',
             'source' => 'required',
             'reference' => 'required',
         ]);
@@ -74,7 +76,11 @@ class InquiryController extends Controller
         $inquiry->email = $request->email;
         $inquiry->mobile = $request->mobile;
         $inquiry->inquiry_text = $request->inquiry_text;
-        $inquiry->status = $request->status;
+        if ($request->status){
+            $inquiry->status = $request->status;
+        }else{
+            $inquiry->status = 'pending';
+        }
         $inquiry->enroll_status = $request->enrollment_status;
         $inquiry->followup = $request->followups;
         $inquiry->comments = $request->comment;
@@ -130,11 +136,8 @@ class InquiryController extends Controller
             'email' => 'required|email',
             'mobile' => 'required',
             'inquiry_text' => 'required',
-            'status' => 'required',
             'enrollment_status' => 'required',
             'followups' => 'required',
-            'comment' => 'required',
-            'note' => 'required',
             'source' => 'required',
             'reference' => 'required',
         ]);
@@ -145,7 +148,11 @@ class InquiryController extends Controller
         $inquiry->email = $request->email;
         $inquiry->mobile = $request->mobile;
         $inquiry->inquiry_text = $request->inquiry_text;
-        $inquiry->status = $request->status;
+        if ($request->status){
+            $inquiry->status = $request->status;
+        }else{
+            $inquiry->status = 'pending';
+        }
         $inquiry->enroll_status = $request->enrollment_status;
         $inquiry->followup = $request->followups;
         $inquiry->comments = $request->comment;
