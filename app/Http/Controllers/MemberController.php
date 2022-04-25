@@ -66,7 +66,6 @@ class MemberController extends Controller
             'club' => 'required',
             'member_code' => 'required',
             'name' => 'required',
-            'email' => 'required|email',
             'mobile' => 'required',
             'dob' => 'required',
             'gender' => 'required',
@@ -80,7 +79,12 @@ class MemberController extends Controller
         $member->membership_id = $request->membership;
         $member->member_code = $request->member_code;
         $member->name = $request->name;
-        $member->email = $request->email;
+
+        if($member->email){
+            $member->email = $request->email;
+        }else{
+            $member->email = 'dummy@email.com';
+        }
         $member->mobile = $request->mobile;
         if ($request->status){
             $member->status = $request->status;
