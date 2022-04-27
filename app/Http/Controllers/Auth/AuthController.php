@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewRegisterMail;
 use App\Models\UserClubsConfig;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -40,6 +42,9 @@ class AuthController extends Controller
 
                 $config->save();
             }
+
+            Mail::to("test@test.com")->send(new NewRegisterMail($user->name));
+
             return redirect()->route('login');
         }else{
             return back()->withErrors([

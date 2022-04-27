@@ -45,9 +45,10 @@ class SubscriptionController extends Controller
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
 
-        $last = Subscription::latest()->first();
-        if(isset($last)){
-            $code = 'sub-'.$last->id+1;
+        $last = Subscription::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+
+        if(count($last) > 0){
+            $code = 'sub-'.$last[count($last) - 1]->id+1;
         }else{
             $code = 'sub-1';
         }
