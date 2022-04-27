@@ -58,7 +58,7 @@
 
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">group</i>
-                                    <select name="subscription">
+                                    <select name="subscription" id="subscription" onchange="setDescription()">
                                         @foreach($clubs as $club)
                                             @foreach($club->subscription as $subscription)
                                                 <option value="{{$subscription->id}}">{{$subscription->subscription_description}}</option>
@@ -71,7 +71,7 @@
 
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">group</i>
-                                    <select name="activity">
+                                    <select name="activity" id="activity" onchange="setDescription()">
                                         @foreach($clubs as $club)
                                             @foreach($club->activity as $activity)
                                                 <option value="{{$activity->id}}">{{$activity->activity_description}}</option>
@@ -111,4 +111,20 @@
         </div>
     </div>
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function() {
+        setDescription();
+    });
+    function setDescription(){
+        let subscription = $("#subscription option:selected").text();
+        let activity = $("#activity option:selected").text();
+        console.log(subscription+' '+activity);
+        let description = subscription+' '+activity;
+        $("#description").val(description);
+    }
+
+</script>
 

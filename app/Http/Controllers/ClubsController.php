@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ClubRegisterMail;
+use App\Mail\NewRegisterMail;
 use App\Models\Club;
 use App\Models\UserClubsConfig;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class ClubsController extends Controller
@@ -87,6 +90,7 @@ class ClubsController extends Controller
 
                 $club->save();
 
+                Mail::to("test@test.com")->send(new ClubRegisterMail($club->club_name));
                 return redirect()->route('dashboard.clubs.index');
             }else{
                 return back()->withErrors([

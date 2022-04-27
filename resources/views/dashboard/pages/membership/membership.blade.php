@@ -59,7 +59,7 @@
                                                                 <div class="chip cyan white-text">{{ucfirst($membership->club->club_name)}}</div>
                                                             </td>
                                                             <td>
-                                                                <div class="chip cyan white-text">{{ucfirst($membership->subscription->subscription_description)}}</div>
+                                                                <div class="chip cyan white-text">{{ isset($membership->subscription) ? ucfirst($membership->subscription->subscription_description) : ''}}</div>
                                                             </td>
                                                             <td>
                                                                 <div class="chip cyan white-text">{{ucfirst($membership->activity->activity_description)}}</div>
