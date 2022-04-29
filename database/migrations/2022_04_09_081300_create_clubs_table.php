@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
             $table->string('club_name');
             $table->string('type');
             $table->longText('address');

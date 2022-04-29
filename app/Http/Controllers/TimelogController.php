@@ -19,8 +19,14 @@ class TimelogController extends Controller
      */
     public function index()
     {
-        $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+        if(\Illuminate\Support\Facades\Session::exists('club_id')){
+            $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+        }else{
+            $members = [];
+            $timelogs = [];
+        }
+
 
 
         return view('dashboard/pages/timelog/timelogs', compact('members','timelogs'));

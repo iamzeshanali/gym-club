@@ -107,6 +107,7 @@
                                                         <th>In Time</th>
                                                         <th>Out Time</th>
                                                         <th>Time Spent</th>
+                                                        <th>Actions</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>

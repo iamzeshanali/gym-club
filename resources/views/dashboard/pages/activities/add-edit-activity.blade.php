@@ -89,7 +89,7 @@
                     <div class="col s12 display-flex justify-content-end mt-3 mb-3">
                         <button type="submit" class="btn indigo">
                             Save changes</button>
-                        <button type="button" class="btn btn-light">Cancel</button>
+                        <button type="button" class="btn btn-light" id="cancel">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -98,4 +98,13 @@
     </div>
 </div>
 @endsection
+
+@section('page-scripts')
+    <script defer>
+        $("#cancel").on("click", function (e) {
+            e.preventDefault();
+            location.reload(true);
+        });
+    </script>
+    @endsection
 

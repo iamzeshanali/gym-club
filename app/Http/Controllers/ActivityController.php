@@ -44,9 +44,10 @@ class ActivityController extends Controller
         }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
-        $last = Activity::latest()->first();
-        if(isset($last)){
-            $code = 'act-'.$last->id+1;
+        $last = Activity::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+
+        if(count($last) > 0){
+            $code = 'act-'.$last[count($last) - 1]->id+1;
         }else{
             $code = 'act-1';
         }

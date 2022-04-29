@@ -151,6 +151,10 @@
 
 @section('page-scripts')
     <script defer>
+        $("#cancel").on("click", function (e) {
+            e.preventDefault();
+            location.reload(true);
+        });
         $(document).ready(function () {
             // upload button converting into file button
             $("#select-files").on("click", function (e) {

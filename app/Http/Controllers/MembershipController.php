@@ -20,8 +20,12 @@ class MembershipController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $memberships = Membership::all();
         }else{
-            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-            $memberships = Membership::where('club_id',$clubs[0]->id)->get();
+            if(\Illuminate\Support\Facades\Session::exists('club_id')){
+                $memberships = Membership::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            }else{
+                $memberships = [];
+            }
+
         }
 
         return view('dashboard/pages/membership/membership', compact('memberships'));

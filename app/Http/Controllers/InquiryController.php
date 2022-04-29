@@ -20,8 +20,11 @@ class InquiryController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $inquiries = Inquiry::all();
         }else{
-            $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-            $inquiries = Inquiry::where('club_id',$clubs[0]->id)->get();
+            if(\Illuminate\Support\Facades\Session::exists('club_id')){
+                $inquiries = Inquiry::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            }else{
+                $inquiries = [];
+            }
         }
 
         return view('dashboard/pages/inquiry/inquiries', compact('inquiries'));
@@ -39,9 +42,10 @@ class InquiryController extends Controller
         }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
         }
-        $last = Inquiry::latest()->first();
-        if(isset($last)){
-            $code = 'member-'.$last->id+1;
+        $last = Inquiry::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+
+        if(count($last) > 0){
+            $code = 'member-'.$last[count($last) - 1]->id+1;
         }else{
             $code = 'member-1';
         }

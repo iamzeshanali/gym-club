@@ -99,7 +99,7 @@
                                 <div class="col s12 display-flex justify-content-end mt-3 mb-3">
                                     <button type="submit" class="btn indigo">
                                         Save changes</button>
-                                    <button type="button" class="btn btn-light">Cancel</button>
+                                    <button type="button" class="btn btn-light" id="cancel">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -112,9 +112,12 @@
     </div>
 @endsection
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@section('page-scripts')
 <script>
-
+    $("#cancel").on("click", function (e) {
+        e.preventDefault();
+        location.reload(true);
+    });
     $(document).ready(function() {
         setDescription();
     });
@@ -127,4 +130,5 @@
     }
 
 </script>
+@endsection
 

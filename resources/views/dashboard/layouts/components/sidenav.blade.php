@@ -18,11 +18,12 @@
                     </li>
                     <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.activities.*') ? 'active' : ''}}" href="{{ route('dashboard.activities.index') }}"><i class="material-icons">fitness_center</i><span class="menu-title" data-i18n="Activities">Activities</span></a>
                     </li>
-                    <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.memberships.*') ? 'active' : ''}}" href="{{ route('dashboard.memberships.index') }}"><i class="material-icons">people</i><span class="menu-title" data-i18n="Membership">Membership</span></a>
+                    <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.addons.*') ? 'active' : ''}}" href="{{ route('dashboard.addons.index') }}"><i class="material-icons">playlist_add</i><span class="menu-title" data-i18n="Add On Activity">Add On Activity</span></a>
                     </li>
                     <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.subscriptions.*') ? 'active' : ''}}" href="{{ route('dashboard.subscriptions.index') }}" disabled><i class="material-icons">book</i><span class="menu-title" data-i18n="Subscriptions">Subscriptions</span></a>
                     </li>
-
+                    <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.memberships.*') ? 'active' : ''}}" href="{{ route('dashboard.memberships.index') }}"><i class="material-icons">people</i><span class="menu-title" data-i18n="Membership">Membership</span></a>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -31,11 +32,6 @@
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.user-clubs-config.*') ? 'active' : ''}}" href="{{ route('dashboard.user-clubs-config.index') }}"><i class="material-icons">info_outline</i><span class="menu-title" data-i18n="Clubs">Users Config</span></a>
         </li>
-
-
-        <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.addons.*') ? 'active' : ''}}" href="{{ route('dashboard.addons.index') }}"><i class="material-icons">playlist_add</i><span class="menu-title" data-i18n="Add On Activity">Add On Activity</span></a>
-        </li>
-
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.members.*') ? 'active' : ''}}" href="{{ route('dashboard.members.index') }}"><i class="material-icons">assignment_ind</i><span class="menu-title" data-i18n="Members">Members</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan {{\Illuminate\Support\Facades\Request::route()->named('dashboard.inquiries.*') ? 'active' : ''}}" href="{{ route('dashboard.inquiries.index') }}"><i class="material-icons">info_outline</i><span class="menu-title" data-i18n="Inquiries">Inquiries</span></a>

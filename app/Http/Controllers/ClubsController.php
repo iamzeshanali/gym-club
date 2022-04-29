@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ClubRegisterMail;
 use App\Mail\NewRegisterMail;
 use App\Models\Club;
+use App\Models\UserClub;
 use App\Models\UserClubsConfig;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -25,7 +26,16 @@ class ClubsController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $clubs = Club::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
+            $user_clubs= UserClub::where('user_id',Auth::user()->id)->get();
+            if(count($user_clubs) > 0){
+                $clubs = [];
+                foreach ($user_clubs as $club){
+                    $tempClub= Club::where('id',$club->club_id)->get();
+                    array_push($clubs,$tempClub[0]);
+                }
+            }else{
+                $clubs = [];
+            }
         }
 
         return view('dashboard/pages/clubs/clubs', compact('clubs'));
@@ -56,7 +66,7 @@ class ClubsController extends Controller
     public function store(Request $request)
     {
         $max_clubs = UserClubsConfig::where('user_id',Auth::user()->id)->get();
-        $currentClubs = Club::where('user_id',Auth::user()->id)->count();
+        $currentClubs = UserClub::where('user_id',Auth::user()->id)->count();
 
 //        dd($max_clubs[0]->max_clubs);
 //        dd($currentClubs);
@@ -72,7 +82,6 @@ class ClubsController extends Controller
                 ]);
 
                 $club = new Club();
-                $club->user_id = Auth::user()->id;
                 if ($request->status){
                     $club->status = $request->status;
                 }else{
@@ -89,6 +98,12 @@ class ClubsController extends Controller
                 $club->note = $request->note;
 
                 $club->save();
+
+                $userClub = new UserClub();
+                $userClub->user_id = Auth::user()->id;
+                $userClub->club_id = $club->id;
+
+                $userClub->save();
 
                 Mail::to("test@test.com")->send(new ClubRegisterMail($club->club_name));
                 return redirect()->route('dashboard.clubs.index');

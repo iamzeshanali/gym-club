@@ -67,8 +67,8 @@
                                                             </td>
                                                             <td>
                                                                 <div class="chip gradient-45deg-purple-deep-orange white-text">
-                                                                    <img src="{{ isset($club->user->user_image) ? url('images/'.$club->user->user_image) : url('images/unknown.jpg')}}" alt="Contact Person">
-                                                                    {{$club->user->name}}
+                                                                    <img src="{{ isset(Auth::user()->user_image) ? url('images/'.Auth::user()->user_image) : url('images/unknown.jpg')}}" alt="Contact Person">
+                                                                    {{Auth::user()->name}}
                                                                 </div>
                                                             </td>
                                                             <td>

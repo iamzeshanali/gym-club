@@ -114,7 +114,9 @@
 @endsection
 
 @section('page-scripts')
+
     <script>
+
         function confirmDelete(id){
             swal({
                 title: "Are you sure?",

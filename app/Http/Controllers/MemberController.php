@@ -23,8 +23,12 @@ class MemberController extends Controller
         if(Auth::user()->role->name == 'admin'){
             $members = Member::all();
         }else{
-            $clubs = Club::where('user_id',Auth::user()->id)->get();
-            $members = Member::where('club_id',$clubs[0]->id)->get();
+            if(\Illuminate\Support\Facades\Session::exists('club_id')){
+                $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            }else{
+                $members = [];
+            }
+
         }
 
         return view('dashboard/pages/members/members', compact('members'));
@@ -44,9 +48,10 @@ class MemberController extends Controller
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             $memberships = Membership::where('club_id',$clubs[0]->id)->get();
         }
-        $last = Member::latest()->first();
-        if(isset($last)){
-            $code = 'member-'.$last->id+1;
+        $last = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+
+        if(count($last) > 0){
+            $code = 'member-'.$last[count($last) - 1]->id+1;
         }else{
             $code = 'member-1';
         }

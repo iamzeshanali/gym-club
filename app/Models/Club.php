@@ -13,9 +13,6 @@ class Club extends Model
         'club_name', 'type', 'address', 'contact_name', 'contact_email', 'mobile', 'status'
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
 
     public function subscription(){
         return $this->hasMany(Subscription::class);

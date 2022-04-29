@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Club;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserClub;
 use Dms\Common\Structure\FileSystem\Image;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,12 +22,23 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-//        foreach ($users as $user){
-//            if (isset($user->image)){
-//                dd($user->image);
-//            }
-//        }
+        if(\Illuminate\Support\Facades\Session::exists('club_id')){
+            $user_clubs= UserClub::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            if(count($user_clubs) > 0){
+                $users = [];
+                foreach ($user_clubs as $club){
+                    $tempClub= User::where('id',$club->user_id)->get();
+                    if(count($tempClub) > 0){
+                        array_push($users,$tempClub[0]);
+                    }
+
+                }
+            }else{
+                $users = [];
+            }
+        }else{
+            $users = [];
+        }
        return view('dashboard/pages/users/users', compact('users'));
     }
 
@@ -77,6 +91,12 @@ class UsersController extends Controller
 //        dd($user);
 
         $user->save();
+
+        $userClub = new UserClub();
+        $userClub->user_id = $user->id;
+        $userClub->club_id = \Illuminate\Support\Facades\Session::get('club_id')[0];
+
+        $userClub->save();
 
         return redirect()->route('dashboard.users.index');
     }
