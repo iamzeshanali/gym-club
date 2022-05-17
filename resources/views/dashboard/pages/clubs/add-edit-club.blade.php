@@ -80,6 +80,25 @@
                                     <label for="mobile">Mobile</label>
                                     <small class="errorTxt3" style="color: red">@error('mobile') {{$message}} @enderror</small>
                                 </div>
+                                @if(isset($countries))
+                                    <div class="col s5 input-field">
+                                        <i class="material-icons prefix">group</i>
+                                        <select name="country" id="country">
+                                            @foreach($countries as $country)
+                                                <option value="approved">{{$country["name"]}} ({{$country['currency']}})</option>
+                                            @endforeach
+                                        </select>
+                                        <label>Country</label>
+                                        <small class="errorTxt3" style="color: red">@error('status') {{$message}} @enderror</small>
+                                    </div>
+                                @endif
+                                <div class="col s5 input-field">
+                                    <i class="material-icons prefix">group</i>
+                                    <select name="city" id="city-input">
+                                    </select>
+                                    <label class="city-label">City</label>
+                                    <small class="errorTxt3" style="color: red">@error('status') {{$message}} @enderror</small>
+                                </div>
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">mode_edit</i>
                                     <textarea id="address" name="address" class="materialize-textarea">{{ isset($club) ? $club->address : old('address') }}</textarea>
@@ -93,7 +112,7 @@
                                 @if(\Illuminate\Support\Facades\Auth::user()->role->name == 'admin')
                                 <div class="col s12 input-field">
                                     <i class="material-icons prefix">group</i>
-                                    <select name="status">
+                                    <select name="status" id="status">
                                         <option value="approved">Approved</option>
                                         <option value="pending">Pending</option>
                                     </select>
@@ -146,7 +165,7 @@
 @endsection
 
 @section('page-scripts')
-    <script defer>
+    <script>
         $("#cancel").on("click", function (e) {
             e.preventDefault();
             location.reload(true);
@@ -177,6 +196,30 @@
                 $("#preview-image").attr("src", "/images/avatar/avatar-12.png");
                 $("#select-files").prop('disabled', false);
                 $("#select-files").text("Upload New");
+            });
+        });
+        $('#country').on('change',function(){
+
+            //var optionValue = $(this).val();
+            //var optionText = $('#dropdownList option[value="'+optionValue+'"]').text();
+            var input = $("#country option:selected").text();
+            var country = input.split("(")[0];
+            country = country.trim();
+            // alert("Selected Option Text: "+country);
+            $.ajax({
+                url: 'https://countriesnow.space/api/v0.1/countries/cities',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    country: country,
+                },
+                success: function (data) {
+                    $.each(data['data'], function(index, value){
+                        // console.log(value);
+                        $('#city-input').append(new Option("value", "ioio"));
+                    })
+
+                }
             });
         });
     </script>

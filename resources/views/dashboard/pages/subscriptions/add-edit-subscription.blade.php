@@ -86,7 +86,7 @@
                                 @endif
                                     <div class="col s12 input-field">
                                         <i class="material-icons prefix">person_pin</i>
-                                        <input id="months" name="months" type="number" class="validate" value="{{ isset($subscription) ? $subscription->months : old('months') }}"
+                                        <input id="months" name="months" type="number" class="validate" min="1" value="{{ isset($subscription) ? $subscription->months : old('months') }}"
                                                data-error=".errorTxt2">
                                         <label for="months">Months</label>
                                         <small class="errorTxt2" style="color: red">@error('months') {{$message}} @enderror</small>

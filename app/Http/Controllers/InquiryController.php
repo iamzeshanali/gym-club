@@ -17,15 +17,12 @@ class InquiryController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role->name == 'admin'){
-            $inquiries = Inquiry::all();
-        }else{
             if(\Illuminate\Support\Facades\Session::exists('club_id')){
                 $inquiries = Inquiry::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             }else{
                 $inquiries = [];
             }
-        }
+
 
         return view('dashboard/pages/inquiry/inquiries', compact('inquiries'));
     }
@@ -37,17 +34,14 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->role->name == 'admin'){
-            $clubs = Club::all();
-        }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        }
+
         $last = Inquiry::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
 
         if(count($last) > 0){
-            $code = 'member-'.$last[count($last) - 1]->id+1;
+            $code = 'inq-'.$last[count($last) - 1]->id+1;
         }else{
-            $code = 'member-1';
+            $code = 'inq-1';
         }
         return view('dashboard/pages/inquiry/add-edit-inquiry', compact('clubs','code'));
     }
@@ -115,11 +109,8 @@ class InquiryController extends Controller
      */
     public function edit(Inquiry $inquiry)
     {
-        if(Auth::user()->role->name == 'admin'){
-            $clubs = Club::all();
-        }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        }
+
 
         return view('dashboard/pages/inquiry/add-edit-inquiry', compact('clubs', 'inquiry'));
     }

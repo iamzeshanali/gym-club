@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\RegisterEmailJob;
 use App\Mail\NewRegisterMail;
 use App\Models\UserClubsConfig;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class AuthController extends Controller
                 $config->save();
             }
 
-            Mail::to("test@test.com")->send(new NewRegisterMail($user->name));
+            RegisterEmailJob::dispatch($user)->delay(now()->addSeconds(5));
 
             return redirect()->route('login');
         }else{

@@ -106,23 +106,6 @@
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>User</th>
-                                                        <th>Member Type</th>
-                                                        <th>Code</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Mobile</th>
-                                                        <th>Status</th>
-                                                        <th>Start Date</th>
-                                                        <th>Membership</th>
-                                                        <th>Enrollment Type</th>
-                                                        <th>Comments</th>
-                                                        <th>Notes</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                    </tfoot>
                                                 </table>
                                             </div>
                                         </div>

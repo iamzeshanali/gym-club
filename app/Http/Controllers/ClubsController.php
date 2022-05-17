@@ -10,6 +10,7 @@ use App\Models\UserClubsConfig;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
@@ -23,9 +24,6 @@ class ClubsController extends Controller
     public function index()
     {
 //        $max_clubs = UserClubsConfig::where('user_id',Auth::user()->id)->get();
-        if(Auth::user()->role->name == 'admin'){
-            $clubs = Club::all();
-        }else{
             $user_clubs= UserClub::where('user_id',Auth::user()->id)->get();
             if(count($user_clubs) > 0){
                 $clubs = [];
@@ -36,7 +34,7 @@ class ClubsController extends Controller
             }else{
                 $clubs = [];
             }
-        }
+
 
         return view('dashboard/pages/clubs/clubs', compact('clubs'));
     }
@@ -54,7 +52,16 @@ class ClubsController extends Controller
      */
     public function create()
     {
-        return view('dashboard/pages/clubs/add-edit-club');
+        $response = Http::get('https://countriesnow.space/api/v0.1/countries/currency');
+        $countries = $response->collect($key = null)["data"];
+//        dd($countries);
+//        $res2 = Http::post('https://countriesnow.space/api/v0.1/countries/cities', [
+//            'country' => 'pakistan'
+//        ]);
+
+//        dd($res2->collect($key = null)["data"]);
+
+        return view('dashboard/pages/clubs/add-edit-club', compact('countries'));
     }
 
     /**

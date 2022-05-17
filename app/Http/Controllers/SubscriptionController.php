@@ -17,17 +17,12 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-
-//        dd(Auth::user()->club);
-        if(Auth::user()->role->name == 'admin'){
-            $subscriptions = Subscription::all();
-        }else{
             if(\Illuminate\Support\Facades\Session::exists('club_id')){
                 $subscriptions = Subscription::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             }else{
                 $subscriptions = [];
             }
-        }
+
 
         return view('dashboard/pages/subscriptions/subscriptions', compact('subscriptions'));
     }
@@ -39,11 +34,8 @@ class SubscriptionController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->role->name == 'admin'){
-            $clubs = Club::all();
-        }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        }
+
 
         $last = Subscription::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
 
@@ -108,11 +100,8 @@ class SubscriptionController extends Controller
      */
     public function edit(Subscription $subscription)
     {
-        if(Auth::user()->role->name == 'admin'){
-            $clubs = Club::all();
-        }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        }
+
         return view('dashboard/pages/subscriptions/add-edit-subscription', compact('subscription', 'clubs'));
     }
 

@@ -21,7 +21,7 @@ class TimelogController extends Controller
     {
         if(\Illuminate\Support\Facades\Session::exists('club_id')){
             $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-            $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+            $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->orderBy('created_at')->get();
         }else{
             $members = [];
             $timelogs = [];
@@ -52,35 +52,20 @@ class TimelogController extends Controller
      */
     public function store(Request $request)
     {
-//        dd("done");
-        $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-
-        $data = explode("|",$request->search);
-        $club = trim($data[0]);
-        $email = trim($data[1]);
-
-        $member = Member::where('email',$email)->get();
-
-        date_default_timezone_set("Asia/Karachi");
-        $date = date("H:i:s");
-
+        $member = Member::where(['name' => $request->name, 'email' => $request->email])->get();
+//        return response()->json(['response'=>$member[0]->name]);
         $timelog = new Timelog();
 //            dd(\Illuminate\Support\Facades\Session::get('club_id'));
         $timelog->club_id = \Illuminate\Support\Facades\Session::get('club_id')[0];
         $timelog->member_id = $member[0]->id;
-        $timelog->time_in = $date;
+        $timelog->time_in = $request->checkedIn;
         $timelog->time_out = 0;
         $timelog->timespent = 0;
         $timelog->source = '';
 //            dd($timelog);
         $timelog->save();
 
-        $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-
-
-        return view('dashboard/pages/timelog/timelogs', compact('members','timelogs'));
+        return response()->json(['response'=>200,'success'=>'AJAX for Search is successfully submitted!']);
     }
 
     /**

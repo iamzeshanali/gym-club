@@ -17,16 +17,13 @@ class MembershipController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role->name == 'admin'){
-            $memberships = Membership::all();
-        }else{
             if(\Illuminate\Support\Facades\Session::exists('club_id')){
                 $memberships = Membership::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
             }else{
                 $memberships = [];
             }
 
-        }
+
 
         return view('dashboard/pages/membership/membership', compact('memberships'));
     }
@@ -38,12 +35,7 @@ class MembershipController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->role->name == 'admin'){
-            $clubs = Club::all();
-        }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        }
-
 //        dd($clubs[0]->subscription[0]->subscription_code);
 
         return view('dashboard/pages/membership/add-edit-membership', compact('clubs'));
@@ -95,11 +87,8 @@ class MembershipController extends Controller
      */
     public function edit(Membership $membership)
     {
-        if(Auth::user()->role->name == 'admin'){
-            $clubs = Club::all();
-        }else{
             $clubs = Club::where('id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
-        }
+
 
 //        dd($clubs[0]->subscription[0]->subscription_code);
 

@@ -19,9 +19,8 @@
                             <div id="search-wrapper" class="card z-depth-0 search-image center-align p-35">
                                 <div class="card-content">
                                     <h5 class="center-align mb-3">How can we help you?</h5>
-                                    <form id="search-form" action="{{ route('dashboard.timelogs.store') }}" method="post">
-                                        @csrf
-                                    <input list="vendor" autocomplete="off"  type="text" placeholder="Search with Member Name/ Email/ Mobile..." id="search" name="search"
+
+                                    <input id="input-data" list="vendor" autocomplete="off"  type="text" placeholder="Search with Member Name/ Email/ Mobile..." id="search" name="search"
                                            class="search-box" style="width:80%;padding-left: 15px;border-radius: 50px; box-shadow: 3px 3px 14px #455a64;">
 
                                     <datalist id="vendor">
@@ -31,11 +30,12 @@
                                                 {{$member->email}} |
                                                 {{$member->mobile}}
                                             </option>
+                                            <input type="hidden" value="{{ isset($member->image) ? url('images/'.$member->image) : url('images/unknown.jpg')}}" />
                                         @endforeach
                                     </datalist>
-                                    <a onclick="submitSearchForm()" class="btn gradient-45deg-purple-deep-orange mr-4 ml-2">Check In
+
+                                    <a onclick="Checkin()" class="btn gradient-45deg-purple-deep-orange mr-4 ml-2">Check In
                                     </a>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -101,15 +101,6 @@
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>User</th>
-                                                        <th>In Time</th>
-                                                        <th>Out Time</th>
-                                                        <th>Time Spent</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                    </tfoot>
                                                 </table>
                                             </div>
                                         </div>
@@ -129,45 +120,88 @@
 @endsection
 
 @section('page-scripts')
-    <script>
-        function submitSearchForm(){
-            swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                icon: 'warning',
-                dangerMode: true,
-                timer: 3000
-            }).then( () => {
-                $('#search-form').submit();
-            });
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function parseTime(s) {
+            var c = s.split(':');
+            return parseInt(c[0]) * 60 + parseInt(c[1]);
+        }
+        function tConvert (time) {
+            // Check correct time format and split into components
+            time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+            if (time.length > 1) { // If time format correct
+                time = time.slice (1);  // Remove full string match value
+                time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+                time[0] = +time[0] % 12 || 12; // Adjust hours
+            }
+            return time.join (''); // return adjusted time or original string
+        }
+
+
+        function Checkin(){
+            var today = new Date();
+            var time = today.getHours() + ":" +  (today.getMinutes()<10?'0':'') + today.getMinutes() + ":" + today.getSeconds();
+            console.log(time);
+            console.log(tConvert (time));
+
+            // StartTime = '00:10';
+            // EndTIme = '01:20';
+            // var minutes = parseTime(EndTIme) - parseTime(StartTime);
+            // alert(minutes);
+
+            let inpuData = $("#input-data").val();
+            let inpuId = $("#member_id").val();
+            let inputImage =$("#member_image").val();
+            console.log((inpuId));
+            inpuData = inpuData.split("|");
+            let name = inpuData[0].trim();
+            let email = inpuData[1].trim();
+            let phone = inpuData[2].trim();
+            let timerInterval
+            Swal.fire({
+                title: `Hi ${name} `,
+                html:
+                    ' <b> Welcome to the Club </b> <br /> <br /> Checked In at <b>'+ tConvert (time) + '</b>',
+                imageUrl: 'https://unsplash.it/400/200',
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: 'Custom image',
+                timer: 5000,
+                timerProgressBar: true,
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+
+                $.ajax({
+                    url: '{{ route('dashboard.timelogs.store') }}',
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        name: name,
+                        email: email,
+                        checkedIn: tConvert(time),
+                    },
+                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    success: function (data) {
+                       console.log(data);
+                        window.location.reload();
+                    }
+                });
+            });
         }
         function confirmDelete(id){
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover this imaginary file!",
                 icon: 'warning',
-                dangerMode: true,
-                buttons: {
-                    cancel: 'No, Please!',
-                    delete: 'Yes, Delete It'
-                }
-            }).then(function (willDelete) {
-                if (willDelete) {
-                    val_id = "#del-form-"+id;
-                    // alert(val_id);
-                    $(val_id).submit();
+                showConfirmButton:false,
+                showCancelButton:false,
+                timer: 1000
+            }).then( () => {
 
-                    swal({
-                        title: "Poof! Role "+data_id+" has been deleted!",
-                        icon: "success",
-                    });
-                } else {
-                    swal("Your imaginary file is safe", {
-                        title: 'Cancelled',
-                        icon: "error",
-                    });
-                }
             });
 
         }

@@ -1,7 +1,7 @@
 @component('mail::message')
 # New Registration
 
-Hi {{$name}},<br>
+Hi {{$user->name}},<br>
 
 Welcome to GymClub. You have been registered.<br>
 Please Login to continue further.
