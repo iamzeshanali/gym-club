@@ -75,7 +75,7 @@
                                                             <td>{{$timelog->time_in}}</td>
                                                             <td>
                                                                 @if($timelog->time_out == "0")
-                                                                    <a href="{{ route('dashboard.timelogs.edit', $timelog->id) }}" class="btn gradient-45deg-purple-deep-orange mr-4">Check Out</a>
+                                                                    <a onclick="checkout({{$timelog->id}},'{{$timelog->time_in}}','{{$timelog->member->name}}')" class="btn gradient-45deg-purple-deep-orange mr-4">Check Out</a>
                                                                 @else
                                                                     {{$timelog->time_out}}
                                                                 @endif
@@ -139,22 +139,69 @@
             return time.join (''); // return adjusted time or original string
         }
 
+        function diff(start, end) {
+            start = start.split(":");
+            end = end.split(":");
+            var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+            var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+            var diff = endDate.getTime() - startDate.getTime();
+            var hours = Math.floor(diff / 1000 / 60 / 60);
+            diff -= hours * 1000 * 60 * 60;
+            var minutes = Math.floor(diff / 1000 / 60);
+
+            return (hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes;
+        }
+
+        function checkout(id, timein, user){
+
+            var today = new Date();
+            var time = today.getHours() + ":" +  (today.getMinutes()<10?'0':'') + today.getMinutes() + ":" + today.getSeconds();
+
+            console.log(timein);
+            console.log(user);
+            console.log(tConvert(time));
+
+            var totalTime = diff(timein, tConvert(time));
+
+            $.ajax({
+                url: '{{ route('dashboard.timelogs.store') }}',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: id,
+                    checkedOut: tConvert(time),
+                    timeSpent: totalTime
+                },
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                success: function (data) {
+                    console.log(data);
+                    Swal.fire({
+                        title: `Hi ${user} `,
+                        html:
+                            ' Checked out at - <b>'+ tConvert (time) + '</b> <br />  <b> Todays Time Spent is '+totalTime+' </b>' + '<br /> <br /> <b> Your past week average Time Spent is'+totalTime+' </b>',
+                        imageUrl: 'https://unsplash.it/400/200',
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: 'Custom image',
+                        timer: 5000,
+                        timerProgressBar: true,
+                    }).then((result) => {
+                        window.location.reload();
+                    });
+
+                }
+            });
+        }
 
         function Checkin(){
             var today = new Date();
             var time = today.getHours() + ":" +  (today.getMinutes()<10?'0':'') + today.getMinutes() + ":" + today.getSeconds();
-            console.log(time);
-            console.log(tConvert (time));
-
-            // StartTime = '00:10';
-            // EndTIme = '01:20';
-            // var minutes = parseTime(EndTIme) - parseTime(StartTime);
-            // alert(minutes);
+            // console.log(time);
+            // console.log(tConvert (time));
 
             let inpuData = $("#input-data").val();
             let inpuId = $("#member_id").val();
             let inputImage =$("#member_image").val();
-            console.log((inpuId));
             inpuData = inpuData.split("|");
             let name = inpuData[0].trim();
             let email = inpuData[1].trim();
@@ -193,16 +240,43 @@
             });
         }
         function confirmDelete(id){
-            swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                icon: 'warning',
-                showConfirmButton:false,
-                showCancelButton:false,
-                timer: 1000
-            }).then( () => {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
 
-            });
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    );
+                    val_id = "#del-form-"+id;
+                    // alert(val_id);
+                    $(val_id).submit();
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            })
 
         }
 

@@ -52,20 +52,32 @@ class TimelogController extends Controller
      */
     public function store(Request $request)
     {
-        $member = Member::where(['name' => $request->name, 'email' => $request->email])->get();
+        if($request->checkedIn){
+            $member = Member::where(['name' => $request->name, 'email' => $request->email])->get();
 //        return response()->json(['response'=>$member[0]->name]);
-        $timelog = new Timelog();
+            $timelog = new Timelog();
 //            dd(\Illuminate\Support\Facades\Session::get('club_id'));
-        $timelog->club_id = \Illuminate\Support\Facades\Session::get('club_id')[0];
-        $timelog->member_id = $member[0]->id;
-        $timelog->time_in = $request->checkedIn;
-        $timelog->time_out = 0;
-        $timelog->timespent = 0;
-        $timelog->source = '';
+            $timelog->club_id = \Illuminate\Support\Facades\Session::get('club_id')[0];
+            $timelog->member_id = $member[0]->id;
+            $timelog->time_in = $request->checkedIn;
+            $timelog->time_out = 0;
+            $timelog->timespent = 0;
+            $timelog->source = '';
 //            dd($timelog);
-        $timelog->save();
+            $timelog->save();
 
-        return response()->json(['response'=>200,'success'=>'AJAX for Search is successfully submitted!']);
+            return response()->json(['response'=>200,'success'=>'AJAX for Search is successfully submitted!']);
+        }else{
+            $timelogs = Timelog::where('id',$request->id)->get();
+
+            $timelogs[0]->time_out = $request->checkedOut;
+            $timelogs[0]->timespent = $request->timeSpent;
+            $timelogs[0]->save();
+
+            return response()->json(['response'=>$timelogs[0]->timespent]);
+        }
+
+
     }
 
     /**
@@ -88,6 +100,7 @@ class TimelogController extends Controller
     public function edit(Timelog $timelog)
     {
         $members = Member::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
+        return response()->json(['response'=>$members[0]->name]);
         $timelogs = Timelog::where('club_id',\Illuminate\Support\Facades\Session::get('club_id'))->get();
 
         date_default_timezone_set("Asia/Karachi");
